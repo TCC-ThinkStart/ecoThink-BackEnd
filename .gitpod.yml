@@ -1,4 +1,4 @@
 tasks:
-  - init: init.sh
+  - init: composer global require laravel/installer  && mkdir dev && cd dev && composer create-project phpmyadmin/phpmyadmin && cd .. && mysqladmin -u root password 'root';
 image:
   file: .gitpod.Dockerfile
