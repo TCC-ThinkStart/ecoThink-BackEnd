@@ -39,14 +39,17 @@ CREATE TABLE tb_evento(
     dt_inicio DATETIME NOT NULL,
     dt_final DATETIME,
     ds_evento MEDIUMTEXT,
-    nm_organizador VARCHAR(255),
     dt_cadastro TIMESTAMP NOT NULL
     DEFAULT CURRENT_TIMESTAMP
     ON UPDATE CURRENT_TIMESTAMP,
     id_endereco INT NOT NULL,
+    id_organizador INT NOT NULL,
     CONSTRAINT fk_endereco_evento
     FOREIGN KEY (id_endereco) REFERENCES
     tb_endereco(cd_endereco),
+    CONSTRAINT fk_organizador_evento
+    FOREIGN KEY (id_organizador) REFERENCES
+    tb_usuario(cd_usuario),
     PRIMARY KEY(cd_evento)
 );
 
