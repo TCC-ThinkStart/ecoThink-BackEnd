@@ -52,7 +52,7 @@ CREATE TABLE tb_evento(
 
 CREATE TABLE tb_palavra_chave(
 	cd_palavra INT AUTO_INCREMENT NOT NULL,
-    nm_palavra VARCHAR(255),
+    nm_palavra VARCHAR(255) NOT NULL,
     PRIMARY KEY(cd_palavra)
 );
 
