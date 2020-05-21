@@ -4,6 +4,7 @@ USE db_ecothink;
 CREATE TABLE tb_estado(
 	cd_estado INT AUTO_INCREMENT NOT NULL,
     nm_estado VARCHAR(255) NOT NULL,
+    sg_estado CHAR(2) NOT NULL,
     PRIMARY KEY(cd_estado)
 );
 
