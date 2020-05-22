@@ -40,8 +40,7 @@ CREATE TABLE tb_evento(
     dt_final DATETIME,
     ds_evento MEDIUMTEXT,
     dt_cadastro TIMESTAMP NOT NULL
-    DEFAULT CURRENT_TIMESTAMP
-    ON UPDATE CURRENT_TIMESTAMP,
+    DEFAULT CURRENT_TIMESTAMP,
     id_endereco INT NOT NULL,
     id_organizador INT NOT NULL,
     CONSTRAINT fk_endereco_evento
@@ -98,8 +97,7 @@ CREATE TABLE tb_usuario(
     ds_nivel CHAR(3) NOT NULL,
     dt_nascimento DATE NOT NULL,
     dt_cadastro TIMESTAMP NOT NULL
-    DEFAULT CURRENT_TIMESTAMP
-    ON UPDATE CURRENT_TIMESTAMP,
+    DEFAULT CURRENT_TIMESTAMP,
     cd_cnpj CHAR(14),
     cd_cpf CHAR(11),
     id_endereco INT NOT NULL,

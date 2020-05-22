@@ -5,6 +5,7 @@ module.exports = {
     password: 'gitpod',
     database: 'db_ecothink',
     define: {
-      underscored: true
+      underscored: true,
+      timestamps: false
     },
   };
