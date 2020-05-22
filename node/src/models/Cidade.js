@@ -30,6 +30,15 @@ class Cidade extends Model {
             }, 
             as: 'fk_estado_cidade' 
         });
+        this.hasMany(models.Endereco, { 
+            foreignKey: {
+                name: 'idCidade',
+                field: 'id_cidade',
+                allowNull: false,
+            },
+            as: 'fk_cidade_endereco',
+            onUpdate: 'CASCADE'
+        });
     }
 }
 
