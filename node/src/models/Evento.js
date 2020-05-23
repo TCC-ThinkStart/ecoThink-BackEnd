@@ -44,7 +44,15 @@ class Evento extends Model {
             deletedAt: false
         })
     }   
-    static associate(models) { 
+    static associate(models) {
+        this.hasMany(models.Foto, {
+            foreignKey: {
+                name: 'idEvento',
+                field: 'id_evento',
+                allowNull: true
+            },
+            as: 'fk_evento_foto'
+        });
         this.belongsTo(models.Endereco, {
             foreignKey: {
                 name: 'idEndereco',
