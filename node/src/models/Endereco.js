@@ -34,7 +34,7 @@ class Endereco extends Model {
             sequelize, 
             modelName: 'Endereco', 
             tableName: 'tb_endereco',
-        })
+        });
     }   
     static associate(models) { 
         this.belongsTo(models.Cidade, { 
@@ -45,6 +45,14 @@ class Endereco extends Model {
             },
             as: 'fk_cidade_endereco',
             onUpdate: 'CASCADE'
+        });
+        this.hasOne(models.Evento, {
+            foreignKey: {
+                name: 'idEndereco',
+                field: 'id_endereco',
+                allowNull: false
+            },
+            as: 'fk_endereco_evento'
         });
     }
 }

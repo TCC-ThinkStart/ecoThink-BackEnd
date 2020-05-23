@@ -19,7 +19,7 @@ class Cidade extends Model {
             sequelize, 
             modelName: 'Cidade', 
             tableName: 'tb_cidade',
-        })
+        });
     }   
     static associate(models) { 
         this.belongsTo(models.Estado, { 

@@ -24,7 +24,7 @@ class Estado extends Model {
             sequelize, 
             modelName: 'Estado', 
             tableName: 'tb_estado',
-        })
+        });
     }   
     static associate(models) {
         this.hasMany(models.Cidade, { 
