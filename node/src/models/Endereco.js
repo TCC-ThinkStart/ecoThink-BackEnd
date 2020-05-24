@@ -43,7 +43,7 @@ class Endereco extends Model {
                 field: 'id_cidade',
                 allowNull: false,
             },
-            as: 'fk_cidade_endereco',
+            as: 'cidade',
             onUpdate: 'CASCADE'
         });
         this.hasOne(models.Evento, {
@@ -52,7 +52,15 @@ class Endereco extends Model {
                 field: 'id_endereco',
                 allowNull: false
             },
-            as: 'fk_endereco_evento'
+            as: 'evento'
+        });
+        this.hasOne(models.Usuario, {
+            foreignKey: {
+                name: 'idEndereco',
+                field: 'id_endereco',
+                allowNull: false
+            },
+            as: 'usuario'
         });
     }
 }

@@ -51,7 +51,7 @@ class Evento extends Model {
                 field: 'id_evento',
                 allowNull: true
             },
-            as: 'fk_evento_foto'
+            as: 'fotos'
         });
         this.belongsTo(models.Endereco, {
             foreignKey: {
@@ -59,7 +59,24 @@ class Evento extends Model {
                 field: 'id_endereco',
                 allowNull: false
             },
-            as: 'fk_endereco_evento'
+            as: 'endereco'
+        });
+        this.belongsTo(models.Usuario, {
+            foreignKey: {
+                name: 'idOrganizador',
+                field: 'id_organizador',
+                allowNull: false
+            },
+            as: 'organizador'
+        });
+        this.belongsToMany(models.Usuario, { 
+            foreignKey: {
+                name: 'idEvento',
+                field: 'id_evento',
+                allowNull: false
+            }, 
+            through: 'tb_evento_usuario', 
+            as: 'eventos'
         });
         this.belongsToMany(models.PalavraChave, { 
             foreignKey: {
@@ -68,7 +85,7 @@ class Evento extends Model {
                 allowNull: false
             }, 
             through: 'tb_evento_palavra_chave', 
-            as: 'fk_evento_palavra' 
+            as: 'palavras' 
         });
     }
 }

@@ -33,7 +33,7 @@ class Estado extends Model {
                 field: 'id_estado',
                 allowNull: false
             },
-            as: 'fk_estado_cidade'
+            as: 'cidades'
         });
     }
 }

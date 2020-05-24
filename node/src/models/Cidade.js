@@ -28,7 +28,7 @@ class Cidade extends Model {
                 field: 'id_estado',
                 allowNull: false
             }, 
-            as: 'fk_estado_cidade' 
+            as: 'estado' 
         });
         this.hasMany(models.Endereco, { 
             foreignKey: {
@@ -36,7 +36,7 @@ class Cidade extends Model {
                 field: 'id_cidade',
                 allowNull: false,
             },
-            as: 'fk_cidade_endereco',
+            as: 'enderecos',
             onUpdate: 'CASCADE'
         });
     }

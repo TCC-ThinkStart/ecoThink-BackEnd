@@ -71,7 +71,7 @@ CREATE TABLE tb_evento_palavra_chave(
 );
 
 CREATE TABLE tb_foto(
-	cd_foto INT NOT NULL,
+	cd_foto INT NOT NULL AUTO_INCREMENT,
     ds_url VARCHAR(255) NOT NULL,
     id_usuario INT NOT NULL,
     id_evento INT,

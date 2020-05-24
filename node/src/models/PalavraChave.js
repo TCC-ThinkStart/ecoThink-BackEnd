@@ -29,7 +29,7 @@ class PalavraChave extends Model {
                 allowNull: false
             }, 
             through: 'tb_evento_palavra_chave', 
-            as: 'fk_palavra_evento' 
+            as: 'eventos' 
         });
     }
 }
