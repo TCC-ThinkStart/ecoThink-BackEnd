@@ -1,19 +1,22 @@
 const Sequelize = require('sequelize');
-const Estado = require('../models/Estado');
+const Cidade = require('../models/Cidade');
 
 module.exports = {
   async findAll(req, res) {
     const { page = 1 } = req.query;
 
-    await Estado.findAndCountAll({
-        attributes: ['codigo', 'nome', 'sigla'],
+    await Cidade.findAndCountAll({
+        attributes: ['codigo', 'nome'],
+        include: [{
+            association: 'estado'
+        }],
         offset: (page - 1) * 5,
         limit: 5
     })
-    .then( estados => {
-        res.header('X-Total-Count', estados.count);
+    .then( cidades => {
+        res.header('X-Total-Count', cidades.count);
 
-        return res.status(200).json(estados.rows);
+        return res.status(200).json(cidades.rows);
     })
     .catch( error => {	
         return res.status(500).json(error);	
@@ -23,12 +26,15 @@ module.exports = {
   async findOne(req, res) {
     const { codigo } = req.params;
 
-    await Estado.findByPk(codigo,{
-        attributes: ['codigo', 'nome', 'sigla'],
+    await Cidade.findByPk(codigo,{
+        attributes: ['codigo', 'nome'],
+        include: [{
+            association: 'estado'
+        }]
     })
-    .then(estado => {
-        if(estado){
-            return res.status(200).json(estado);
+    .then(cidade => {
+        if(cidade){
+            return res.status(200).json(cidade);
         }else{
             return res.status(404).send();
         }
@@ -38,13 +44,13 @@ module.exports = {
     });
   },
   async store(req, res) {
-    const { nome, sigla } = req.body;
+    const { nome, idEstado } = req.body;
 
-    await Estado.create({
-        nome, sigla
+    await Cidade.create({
+        nome, idEstado
     })
-    .then(estado => {
-        return res.status(201).json(estado);
+    .then(cidade => {
+        return res.status(201).json(cidade);
     })
     .catch(Sequelize.ValidationError, error => {	
         return res.status(400).json(error);	
@@ -56,10 +62,10 @@ module.exports = {
   },
   async update(req, res) {
     const { codigo } = req.params;
-    const { nome, sigla } = req.body;
+    const { nome, idEstado } = req.body;
 
-    await Estado.update({
-        nome, sigla
+    await Cidade.update({
+        nome, idEstado
     },{
         where: {
             codigo
@@ -67,11 +73,11 @@ module.exports = {
     })
     .then(async retorno => {
         if(retorno >= 1){
-            await Estado.findByPk(codigo)
-            .then(estado => {
+            await Cidade.findByPk(codigo)
+            .then(cidade => {
                 return res.status(200).json({
-                    estado,
-                    success: 'Estado - atualizado com sucesso'
+                    cidade,
+                    success: 'Cidade - atualizado com sucesso'
                 });
             })
         }else{
@@ -89,14 +95,14 @@ module.exports = {
   async delete(req, res) {
     const { codigo } = req.params;
 
-    await Estado.destroy({
+    await Cidade.destroy({
         where: {
             codigo
         }
     }).then(retorno => {
         if(retorno){
             return res.status(200).json({
-                success: 'Estado - excluido com sucesso'
+                success: 'Cidade - excluido com sucesso'
             });
         }else{
             return res.status(400).send();

@@ -108,7 +108,7 @@ CREATE TABLE tb_usuario(
     ON UPDATE CURRENT_TIMESTAMP,
     cd_cnpj CHAR(14),
     cd_cpf CHAR(11),
-    id_endereco INT NOT NULL,
+    id_endereco INT,
     id_foto_perfil INT,
     CONSTRAINT fk_endereco_usuario
     FOREIGN KEY (id_endereco) REFERENCES

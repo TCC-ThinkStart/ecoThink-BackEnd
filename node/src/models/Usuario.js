@@ -99,7 +99,7 @@ class Usuario extends Model {
             foreignKey: {
                 name: 'idEndereco',
                 field: 'id_endereco',
-                allowNull: false
+                allowNull: true
             },
             as: 'endereco'
         });
