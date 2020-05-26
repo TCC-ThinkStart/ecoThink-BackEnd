@@ -14,9 +14,6 @@ module.exports = {
 
         return res.status(200).json(estados.rows);
     })
-    .catch(Sequelize.ValidationError, error => {
-        return res.status(400).json(error);
-    })
     .catch( error => {	
         return res.status(500).json(error);	
     });
@@ -33,9 +30,6 @@ module.exports = {
             return res.status(404).send();
         }
     })
-    .catch(Sequelize.ValidationError, error => {
-        return res.status(400).json(error);
-    })
     .catch( error => {	
         return res.status(500).json(error);	
     });
@@ -48,9 +42,6 @@ module.exports = {
     })
     .then(estado => {
         return res.status(201).json(estado);
-    })
-    .catch(Sequelize.ValidationError, error => {
-        return res.status(400).json(error);
     })
     .catch( error => {	
         return res.status(500).json(error);	
@@ -81,9 +72,6 @@ module.exports = {
             return res.status(400).send();
         }
     })
-    .catch(Sequelize.ValidationError, error => {
-        return res.status(400).json(error);
-    })
     .catch( error => {	
         return res.status(500).json(error);	
     });
@@ -104,9 +92,6 @@ module.exports = {
         }else{
             return res.status(400).send();
         }
-    })
-    .catch(Sequelize.ValidationError, error => {
-        return res.status(400).json(error);
     })
     .catch( error => {	
         return res.status(500).json(error);	
