@@ -2,9 +2,9 @@ const express = require('express');
 
 const routes = express.Router();
 
-//API
-routes.use('/', async (req, res) => {
-    return res.send('OK')
-});
+const EstadoRoute = require('./routes/EstadoRoute');
+
+//Rotas - Estado
+routes.use('/estado', EstadoRoute);
 
 module.exports = routes;
