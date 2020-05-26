@@ -13,7 +13,8 @@ class Usuario extends Model {
             nome: {
                 field: 'nm_usuario',
                 type: DataTypes.STRING(255),
-                allowNull: false
+                allowNull: false,
+                unique: true
             }, 
             senha: {
                 field: 'cd_senha',
@@ -23,7 +24,8 @@ class Usuario extends Model {
             email: {
                 field: 'ds_email',
                 type: DataTypes.STRING(255),
-                allowNull: false
+                allowNull: false,
+                unique: true
             },
             celular: {
                 field: 'ds_celular',

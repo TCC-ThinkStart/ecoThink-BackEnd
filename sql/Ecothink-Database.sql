@@ -117,7 +117,11 @@ CREATE TABLE tb_usuario(
     FOREIGN KEY (id_foto_perfil) REFERENCES
     tb_foto(cd_foto),
     CONSTRAINT chk_maior_idade
-    CHECK (TIMESTAMPDIFF(year , dt_nascimento, dt_alteracao) >= 18),    
+    CHECK (TIMESTAMPDIFF(year , dt_nascimento, dt_alteracao) >= 18), 
+    CONSTRAINT uc_nome 
+    UNIQUE (nm_usuario),
+    CONSTRAINT uc_email 
+    UNIQUE (ds_email),   
     PRIMARY KEY(cd_usuario)
 );
 
