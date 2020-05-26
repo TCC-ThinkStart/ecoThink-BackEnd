@@ -12,12 +12,27 @@ module.exports = {
     .then( estados => {
         res.header('X-Total-Count', estados.count);
 
-        return res.json(estados.rows);
+        return res.status(200).json(estados.rows);
     })
     .catch(Sequelize.ValidationError, error => {
         return res.status(400).json(error);
     });
 
+  },
+  async findOne(req, res) {
+    const { codigo } = req.params;
+
+    await Estado.findByPk(codigo)
+    .then(estado => {
+        if(estado){
+            return res.status(200).json(estado);
+        }else{
+            return res.status(404).send();
+        }
+    })
+    .catch(Sequelize.ValidationError, error => {
+        return res.status(400).json(error);
+    });
   },
   async store(req, res) {
     const { nome, sigla } = req.body;

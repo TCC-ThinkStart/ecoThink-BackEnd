@@ -8,6 +8,7 @@ const routes = express.Router();
 
 //Rotas Estado
 routes.get('/', EstadoController.findAll);
+routes.get('/:codigo', EstadoController.findOne);
 routes.post('/', EstadoController.store);
 routes.put('/:codigo', EstadoController.update);
 routes.delete('/:codigo', EstadoController.delete);
