@@ -59,8 +59,8 @@ module.exports = {
             codigo
         }
     })
-    .then(async (count, rows) => {
-        if(count >= 1){
+    .then(async retorno => {
+        if(retorno >= 1){
             await Estado.findByPk(codigo)
             .then(estado => {
                 return res.status(200).json({
