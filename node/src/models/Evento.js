@@ -23,7 +23,7 @@ class Evento extends Model {
             dataFinal: {
                 field: 'dt_final',
                 type: DataTypes.DATE,
-                allowNull: true
+                allowNull: false
             },
             descricao: {
                 field: 'ds_evento',
@@ -33,6 +33,10 @@ class Evento extends Model {
             dataCadastro: {
                 field: 'dt_cadastro',
                 type: DataTypes.DATE
+            },
+            dataAlteracao: {
+                field: 'dt_alteracao',
+                type: DataTypes.DATE
             }
         }, {
             sequelize, 
@@ -40,7 +44,7 @@ class Evento extends Model {
             tableName: 'tb_evento',
             timestamps: true,
             createdAt: 'dt_cadastro',
-            updatedAt: false,
+            updatedAt: 'dt_cadastro',
             deletedAt: false
         })
     }   

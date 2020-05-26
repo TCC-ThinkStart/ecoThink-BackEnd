@@ -37,10 +37,13 @@ CREATE TABLE tb_evento(
 	cd_evento INT AUTO_INCREMENT NOT NULL,
     nm_evento VARCHAR(255) NOT NULL,
     dt_inicio DATETIME NOT NULL,
-    dt_final DATETIME,
+    dt_final DATETIME NOT NULL,
     ds_evento MEDIUMTEXT,
     dt_cadastro TIMESTAMP NOT NULL
     DEFAULT CURRENT_TIMESTAMP,
+    dt_alteracao TIMESTAMP NOT NULL
+    DEFAULT CURRENT_TIMESTAMP
+    ON UPDATE CURRENT_TIMESTAMP,
     id_endereco INT NOT NULL,
     id_organizador INT NOT NULL,
     CONSTRAINT fk_endereco_evento
@@ -49,6 +52,8 @@ CREATE TABLE tb_evento(
     CONSTRAINT fk_organizador_evento
     FOREIGN KEY (id_organizador) REFERENCES
     tb_usuario(cd_usuario),
+    CONSTRAINT chk_data
+    CHECK (TIMESTAMPDIFF(minute , dt_inicio, dt_final) >= 0),
     PRIMARY KEY(cd_evento)
 );
 
@@ -98,6 +103,9 @@ CREATE TABLE tb_usuario(
     dt_nascimento DATE NOT NULL,
     dt_cadastro TIMESTAMP NOT NULL
     DEFAULT CURRENT_TIMESTAMP,
+    dt_alteracao TIMESTAMP NOT NULL
+    DEFAULT CURRENT_TIMESTAMP
+    ON UPDATE CURRENT_TIMESTAMP,
     cd_cnpj CHAR(14),
     cd_cpf CHAR(11),
     id_endereco INT NOT NULL,
@@ -108,6 +116,8 @@ CREATE TABLE tb_usuario(
     CONSTRAINT fk_foto_perfil_usuario
     FOREIGN KEY (id_foto_perfil) REFERENCES
     tb_foto(cd_foto),
+    CONSTRAINT chk_maior_idade
+    CHECK (TIMESTAMPDIFF(year , dt_nascimento, dt_alteracao) >= 18),    
     PRIMARY KEY(cd_usuario)
 );
 
@@ -122,3 +132,6 @@ CREATE TABLE tb_evento_usuario(
     tb_usuario(cd_usuario),
     PRIMARY KEY(id_evento, id_usuario)
 );
+
+CREATE FUNCTION verifica_status_evento(data datetime)
+RETURNS VARCHAR(10) READS SQL DATA RETURN IF(TIMESTAMPDIFF(second , NOW(), data) >= 0, "aberto", "fechado");

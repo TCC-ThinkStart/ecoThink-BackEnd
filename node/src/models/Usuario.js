@@ -44,6 +44,10 @@ class Usuario extends Model {
                 field: 'dt_cadastro',
                 type: DataTypes.DATE
             },
+            dataAlteracao: {
+                field: 'dt_alteracao',
+                type: DataTypes.DATE
+            },
             cnpj: {
                 field: 'cd_cnpj',
                 type: DataTypes.CHAR(14),
@@ -60,7 +64,7 @@ class Usuario extends Model {
             tableName: 'tb_usuario',
             timestamps: true,
             createdAt: 'dt_cadastro',
-            updatedAt: false,
+            updatedAt: 'dt_alteracao',
             deletedAt: false
         })
     }   
