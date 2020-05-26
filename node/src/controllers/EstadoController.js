@@ -1,4 +1,3 @@
-const Sequelize = require('sequelize');
 const Estado = require('../models/Estado');
 
 module.exports = {
