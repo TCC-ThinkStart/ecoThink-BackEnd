@@ -16,6 +16,9 @@ module.exports = {
     })
     .catch(Sequelize.ValidationError, error => {
         return res.status(400).json(error);
+    })
+    .catch( error => {	
+        return res.status(500).json(error);	
     });
 
   },
@@ -32,6 +35,9 @@ module.exports = {
     })
     .catch(Sequelize.ValidationError, error => {
         return res.status(400).json(error);
+    })
+    .catch( error => {	
+        return res.status(500).json(error);	
     });
   },
   async store(req, res) {
@@ -45,6 +51,9 @@ module.exports = {
     })
     .catch(Sequelize.ValidationError, error => {
         return res.status(400).json(error);
+    })
+    .catch( error => {	
+        return res.status(500).json(error);	
     });
 
   },
@@ -74,6 +83,9 @@ module.exports = {
     })
     .catch(Sequelize.ValidationError, error => {
         return res.status(400).json(error);
+    })
+    .catch( error => {	
+        return res.status(500).json(error);	
     });
 
   },
@@ -95,6 +107,9 @@ module.exports = {
     })
     .catch(Sequelize.ValidationError, error => {
         return res.status(400).json(error);
+    })
+    .catch( error => {	
+        return res.status(500).json(error);	
     });
 
   }
