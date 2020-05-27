@@ -1,19 +1,20 @@
 const Sequelize = require('sequelize');
-const Cidade = require('../models/Cidade');
+const Evento = require('../models/Evento');
 
 module.exports = {
   async findAll(req, res) {
     const { page = 1 } = req.query;
 
-    await Cidade.findAndCountAll({
-        attributes: ['codigo', 'nome', 'idEstado'],
+    await Evento.findAndCountAll({
+        attributes: ['codigo', 'nome', 'dataInicio', 'dataFinal', 'descricao', 'dataCadastro', 'dataAlteracao', 'idOrganizador', 'idEndereco',
+        [Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']],
         offset: (page - 1) * 5,
         limit: 5
     })
-    .then( cidades => {
-        res.header('X-Total-Count', cidades.count);
+    .then( eventos => {
+        res.header('X-Total-Count', eventos.count);
 
-        return res.status(200).json(cidades.rows);
+        return res.status(200).json(eventos.rows);
     })
     .catch( error => {	
         return res.status(500).json(error);	
@@ -23,12 +24,13 @@ module.exports = {
   async findOne(req, res) {
     const { codigo } = req.params;
 
-    await Cidade.findByPk(codigo,{
-        attributes: ['codigo', 'nome', 'idEstado']
+    await Evento.findByPk(codigo,{
+        attributes: ['codigo', 'nome', 'dataInicio', 'dataFinal', 'descricao', 'dataCadastro', 'dataAlteracao', 'idOrganizador', 'idEndereco',
+        [Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']]
     })
-    .then(cidade => {
-        if(cidade){
-            return res.status(200).json(cidade);
+    .then(evento => {
+        if(evento){
+            return res.status(200).json(evento);
         }else{
             return res.status(404).send();
         }
@@ -38,13 +40,13 @@ module.exports = {
     });
   },
   async store(req, res) {
-    const { nome, idEstado } = req.body;
+    const { nome, dataInicio, dataFinal, descricao, idOrganizador, idEndereco } = req.body;
 
-    await Cidade.create({
-        nome, idEstado
+    await Evento.create({
+        nome, dataInicio, dataFinal, descricao, idOrganizador, idEndereco
     })
-    .then(cidade => {
-        return res.status(201).json(cidade);
+    .then(evento => {
+        return res.status(201).json(evento);
     })
     .catch(Sequelize.ValidationError, error => {	
         return res.status(400).json(error);	
@@ -56,10 +58,10 @@ module.exports = {
   },
   async update(req, res) {
     const { codigo } = req.params;
-    const { nome, idEstado } = req.body;
+    const { nome, sigla } = req.body;
 
-    await Cidade.update({
-        nome, idEstado
+    await Evento.update({
+        nome, sigla
     },{
         where: {
             codigo
@@ -67,11 +69,11 @@ module.exports = {
     })
     .then(async retorno => {
         if(retorno >= 1){
-            await Cidade.findByPk(codigo)
-            .then(cidade => {
+            await Evento.findByPk(codigo)
+            .then(evento => {
                 return res.status(200).json({
-                    cidade,
-                    success: 'Cidade - atualizado com sucesso'
+                    evento,
+                    success: 'Evento - atualizado com sucesso'
                 });
             })
         }else{
@@ -89,14 +91,14 @@ module.exports = {
   async delete(req, res) {
     const { codigo } = req.params;
 
-    await Cidade.destroy({
+    await Evento.destroy({
         where: {
             codigo
         }
     }).then(retorno => {
         if(retorno){
             return res.status(200).json({
-                success: 'Cidade - excluido com sucesso'
+                success: 'Evento - excluido com sucesso'
             });
         }else{
             return res.status(400).send();
