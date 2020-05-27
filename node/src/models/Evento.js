@@ -44,7 +44,7 @@ class Evento extends Model {
             tableName: 'tb_evento',
             timestamps: true,
             createdAt: 'dt_cadastro',
-            updatedAt: 'dt_cadastro',
+            updatedAt: 'dt_alteracao',
             deletedAt: false
         })
     }   
