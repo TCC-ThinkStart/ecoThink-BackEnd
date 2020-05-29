@@ -13,7 +13,7 @@ routes.get('/', UsuarioController.findAll);
 routes.get('/usuarios', UsuarioController.findAllUsers);
 routes.get('/organizacoes', UsuarioController.findAllOrgs);
 routes.get('/:codigo', UsuarioController.findOne);
-routes.get('/pesquisa/:pesquisa', UsuarioController.Search);
+routes.get('/pesquisa/', UsuarioController.Search);
 routes.get('/profile/:codigo', UsuarioController.profile);
 //POST
 routes.post('/', UsuarioController.storeUser);
