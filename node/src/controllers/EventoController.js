@@ -11,6 +11,11 @@ module.exports = {
     await Evento.findAndCountAll({
         attributes: ['codigo', 'nome', 'dataInicio', 'dataFinal', 'descricao', 'dataCadastro', 'dataAlteracao', 'idOrganizador', 'idEndereco',
         [Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']],
+        include: [{
+            attributes: ['codigo', 'palavra'],
+            association: 'palavra',
+            through: { attributes: [] }
+        }],
         offset: (page - 1) * 5,
         limit: 5,
         order: random != null ? Sequelize.fn('rand') : [['dataInicio', 'DESC']]
@@ -39,6 +44,11 @@ module.exports = {
             where: {
                 idCidade: codigo
             }
+        }, 
+        {
+            attributes: ['codigo', 'palavra'],
+            association: 'palavra',
+            through: { attributes: [] }
         }],
         offset: (page - 1) * 5,
         limit: 5
@@ -63,6 +73,11 @@ module.exports = {
         where: {
             idOrganizador: codigo
         },
+        include: [{
+            attributes: ['codigo', 'palavra'],
+            association: 'palavra',
+            through: { attributes: [] }
+        }],
         offset: (page - 1) * 5,
         limit: 5
     })
@@ -90,6 +105,10 @@ module.exports = {
             where: {
                 codigo
             }
+        }, {
+            attributes: ['codigo', 'palavra'],
+            association: 'palavra',
+            through: { attributes: [] }
         }],
         offset: (page - 1) * 5,
         limit: 5
@@ -113,8 +132,9 @@ module.exports = {
         [Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']],
         include: [{
             required: true,
-            attributes: [],
+            attributes: ['codigo', 'palavra'],
             association: 'palavra',
+            through: { attributes: [] },
             where: {
                 codigo
             }
@@ -144,6 +164,11 @@ module.exports = {
                 [Sequelize.Op.like]: `%${pesquisa}%`
             },
         },
+        include: [{
+            attributes: ['codigo', 'palavra'],
+            association: 'palavra',
+            through: { attributes: [] }
+        }],
         offset: (page - 1) * 5,
         limit: 5
     })
@@ -162,7 +187,12 @@ module.exports = {
 
     await Evento.findByPk(codigo,{
         attributes: ['codigo', 'nome', 'dataInicio', 'dataFinal', 'descricao', 'dataCadastro', 'dataAlteracao', 'idOrganizador', 'idEndereco',
-        [Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']]
+        [Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']],
+        include: [{
+            attributes: ['codigo', 'palavra'],
+            association: 'palavra',
+            through: { attributes: [] }
+        }]
     })
     .then(evento => {
         if(evento){
