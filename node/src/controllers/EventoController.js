@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const Evento = require('../models/Evento');
+const Usuario = require('../models/Usuario');
 const Endereco = require('../models/Endereco');
+const PalavraChave = require('../models/PalavraChave');
 
 module.exports = {
   async findAll(req, res) {
@@ -61,6 +63,62 @@ module.exports = {
         where: {
             idOrganizador: codigo
         },
+        offset: (page - 1) * 5,
+        limit: 5
+    })
+    .then( eventos => {
+        res.header('X-Total-Count', eventos.count);
+
+        return res.status(200).json(eventos.rows);
+    })
+    .catch( error => {	
+        return res.status(500).json(error);	
+    });
+
+  },
+  async findBySubscribe(req, res) {
+    const { codigo } = req.params;
+    const { page = 1 } = req.query;
+
+    await Evento.findAndCountAll({
+        attributes: ['codigo', 'nome', 'dataInicio', 'dataFinal', 'descricao', 'dataCadastro', 'dataAlteracao', 'idOrganizador', 'idEndereco',
+        [Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']],
+        include: [{
+            required: true,
+            attributes: [],
+            association: 'usuario',
+            where: {
+                codigo
+            }
+        }],
+        offset: (page - 1) * 5,
+        limit: 5
+    })
+    .then( eventos => {
+        res.header('X-Total-Count', eventos.count);
+
+        return res.status(200).json(eventos.rows);
+    })
+    .catch( error => {	
+        return res.status(500).json(error);	
+    });
+
+  },
+  async findByKeyword(req, res) {
+    const { codigo } = req.params;
+    const { page = 1 } = req.query;
+
+    await Evento.findAndCountAll({
+        attributes: ['codigo', 'nome', 'dataInicio', 'dataFinal', 'descricao', 'dataCadastro', 'dataAlteracao', 'idOrganizador', 'idEndereco',
+        [Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']],
+        include: [{
+            required: true,
+            attributes: [],
+            association: 'palavra',
+            where: {
+                codigo
+            }
+        }],
         offset: (page - 1) * 5,
         limit: 5
     })
@@ -139,6 +197,90 @@ module.exports = {
     })
     .catch( error => {	
         return res.status(500).json(error);	
+    });
+
+  },
+  async subscribeUser(req, res) {
+    const { cdEvento, cdUsuario } = req.params;
+    await Evento.findByPk(cdEvento,{
+        attributes: ['codigo',[Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']]
+    })
+    .then(async evento => {
+        if(evento.get('status') == "aberto"){
+            await Usuario.findByPk(cdUsuario)
+            .then(usuario => {
+                if(usuario){
+                    usuario.addEvento(evento);
+                    return res.status(200).json({ "success": "Inscrição Bem Sucedida"});
+                }else{
+                    return res.status(400).send();
+                }
+            });
+        }else{
+            return res.status(400).send();
+        }
+    });
+
+  },
+  async unsubscribeUser(req, res) {
+    const { cdEvento, cdUsuario } = req.params;
+    await Evento.findByPk(cdEvento,{
+        attributes: ['codigo',[Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']]
+    })
+    .then(async evento => {
+        if(evento.get('status') == "aberto"){
+            await Usuario.findByPk(cdUsuario)
+            .then(usuario => {
+                if(usuario){
+                    usuario.removeEvento(evento);
+                    return res.status(200).json({ "success": "Inscrição Cancelada"});
+                }else{
+                    return res.status(400).send();
+                }
+            });
+        }else{
+            return res.status(400).send();
+        }
+    });
+    
+  },
+  async addKeyword(req, res) {
+    const { cdEvento, cdPalavra } = req.params;
+    await PalavraChave.findByPk(cdPalavra)
+    .then(async palavra => {
+        if(palavra){
+            await Evento.findByPk(cdEvento)
+            .then(evento => {
+                if(evento){
+                    evento.addPalavra(palavra);
+                    return res.status(200).json({ "success": "Palavra Chave - Adicionada"});
+                }else{
+                    return res.status(400).send();
+                }
+            });
+        }else{
+            return res.status(400).send();
+        }
+    });
+
+  },
+  async removeKeyword(req, res) {
+    const { cdEvento, cdPalavra } = req.params;
+    await PalavraChave.findByPk(cdPalavra)
+    .then(async palavra => {
+        if(palavra){
+            await Evento.findByPk(cdEvento)
+            .then(evento => {
+                if(evento){
+                    evento.removePalavra(palavra);
+                    return res.status(200).json({ "success": "Palavra Chave - Removida"});
+                }else{
+                    return res.status(400).send();
+                }
+            });
+        }else{
+            return res.status(400).send();
+        }
     });
 
   },

@@ -80,7 +80,7 @@ class Evento extends Model {
                 allowNull: false
             }, 
             through: 'tb_evento_usuario', 
-            as: 'eventos'
+            as: 'usuario'
         });
         this.belongsToMany(models.PalavraChave, { 
             foreignKey: {
@@ -89,7 +89,7 @@ class Evento extends Model {
                 allowNull: false
             }, 
             through: 'tb_evento_palavra_chave', 
-            as: 'palavras' 
+            as: 'palavra' 
         });
     }
 }

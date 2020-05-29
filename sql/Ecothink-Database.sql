@@ -70,10 +70,12 @@ CREATE TABLE tb_evento_palavra_chave(
     id_palavra INT NOT NULL,
     CONSTRAINT fk_evento_palavra
     FOREIGN KEY (id_evento) REFERENCES
-    tb_evento(cd_evento),
+    tb_evento(cd_evento)
+    ON DELETE CASCADE,
     CONSTRAINT fk_palavra_evento
     FOREIGN KEY (id_palavra) REFERENCES
-    tb_palavra_chave(cd_palavra),
+    tb_palavra_chave(cd_palavra)
+    ON DELETE CASCADE,
     PRIMARY KEY(id_evento, id_palavra)
 );
 
@@ -132,10 +134,12 @@ CREATE TABLE tb_evento_usuario(
     id_usuario INT NOT NULL,
     CONSTRAINT fk_evento_usuario
     FOREIGN KEY (id_evento) REFERENCES
-    tb_evento(cd_evento),
+    tb_evento(cd_evento)
+    ON DELETE CASCADE,
     CONSTRAINT fk_usuario_evento
     FOREIGN KEY (id_usuario) REFERENCES
-    tb_usuario(cd_usuario),
+    tb_usuario(cd_usuario)
+    ON DELETE CASCADE,
     PRIMARY KEY(id_evento, id_usuario)
 );
 

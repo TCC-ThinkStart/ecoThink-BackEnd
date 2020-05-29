@@ -7,6 +7,7 @@ const CidadeRoute = require('./routes/CidadeRoute');
 const EnderecoRoute = require('./routes/EnderecoRoute');
 const UsuarioRoute = require('./routes/UsuarioRoute');
 const EventoRoute = require('./routes/EventoRoute');
+const PalavraChaveRoute = require('./routes/PalavraChaveRoute');
 
 //Rotas - Estado
 routes.use('/estado', EstadoRoute);
@@ -18,5 +19,7 @@ routes.use('/endereco', EnderecoRoute);
 routes.use('/usuario', UsuarioRoute);
 //Rotas - Evento
 routes.use('/evento', EventoRoute);
+//Rotas - PalavraChave
+routes.use('/palavrachave',PalavraChaveRoute);
 
 module.exports = routes;
