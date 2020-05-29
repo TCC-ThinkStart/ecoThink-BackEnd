@@ -81,13 +81,14 @@ module.exports = {
     });
   },
   async Search(req, res) {
-    const { page = 1, nome } = req.query;
+    const { pesquisa } = req.params;
+    const { page = 1 } = req.query;
 
     await Usuario.findAndCountAll({
         attributes: ['codigo', 'nome', 'email', 'celular', 'dataNascimento', 'dataCadastro', 'dataAlteracao', 'nivel', 'idEndereco', 'idFotoPerfil'],
         where: {
             nome: {
-                [Sequelize.Op.like]: `%${nome}%`
+                [Sequelize.Op.like]: `%${pesquisa}%`
             }
         },
         offset: (page - 1) * 5,
