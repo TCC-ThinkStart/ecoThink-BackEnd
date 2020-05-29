@@ -24,7 +24,7 @@ CREATE TABLE tb_endereco(
     cd_cep CHAR(8) NOT NULL,
     ds_logradouro VARCHAR(255) NOT NULL,
     nm_bairro VARCHAR(255) NOT NULL,
-    cd_numero INT NOT NULL,
+    cd_numero INT,
     id_cidade INT NOT NULL,
     CONSTRAINT fk_cidade_endereco
     FOREIGN KEY (id_cidade) REFERENCES
@@ -51,7 +51,9 @@ CREATE TABLE tb_evento(
     tb_endereco(cd_endereco),
     CONSTRAINT fk_organizador_evento
     FOREIGN KEY (id_organizador) REFERENCES
-    tb_usuario(cd_usuario),
+    tb_usuario(cd_usuario)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     CONSTRAINT chk_data
     CHECK (TIMESTAMPDIFF(minute , dt_inicio, dt_final) >= 0),
     PRIMARY KEY(cd_evento)
@@ -98,14 +100,14 @@ CREATE TABLE tb_usuario(
     nm_usuario VARCHAR(255) NOT NULL,
     ds_email VARCHAR(255) NOT NULL,
     cd_senha VARCHAR(255) NOT NULL,
-    ds_celular VARCHAR(40) NOT NULL,
     ds_nivel CHAR(3) NOT NULL,
-    dt_nascimento DATE NOT NULL,
     dt_cadastro TIMESTAMP NOT NULL
     DEFAULT CURRENT_TIMESTAMP,
     dt_alteracao TIMESTAMP NOT NULL
     DEFAULT CURRENT_TIMESTAMP
     ON UPDATE CURRENT_TIMESTAMP,
+    dt_nascimento DATE,
+    ds_celular VARCHAR(40),
     cd_cnpj CHAR(14),
     cd_cpf CHAR(11),
     id_endereco INT,

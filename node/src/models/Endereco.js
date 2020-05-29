@@ -28,7 +28,7 @@ class Endereco extends Model {
             numero: {
                 field: 'cd_numero',
                 type: DataTypes.INTEGER,
-                allowNull: false
+                allowNull: true
             }
         }, {
             sequelize, 

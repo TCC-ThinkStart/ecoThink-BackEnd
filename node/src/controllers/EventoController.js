@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const Evento = require('../models/Evento');
+const Endereco = require('../models/Endereco');
 
 module.exports = {
   async findAll(req, res) {
@@ -74,7 +75,7 @@ module.exports = {
 
   },
   async Search(req, res) {
-    const { codigo, pesquisa } = req.params;
+    const { pesquisa } = req.params;
     const { page = 1 } = req.query;
 
     await Evento.findAndCountAll({
@@ -154,7 +155,10 @@ module.exports = {
     })
     .then(async retorno => {
         if(retorno >= 1){
-            await Evento.findByPk(codigo)
+            await Evento.findByPk(codigo,{
+                attributes: ['codigo', 'nome', 'dataInicio', 'dataFinal', 'descricao', 'dataCadastro', 'dataAlteracao', 'idOrganizador', 'idEndereco',
+                [Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']]
+            })
             .then(evento => {
                 return res.status(200).json({
                     evento,
@@ -175,22 +179,36 @@ module.exports = {
   },
   async delete(req, res) {
     const { codigo } = req.params;
-
-    await Evento.destroy({
-        where: {
-            codigo
-        }
-    }).then(retorno => {
-        if(retorno){
-            return res.status(200).json({
-                success: 'Evento - excluido com sucesso'
+    
+    await Evento.findByPk(codigo)
+    .then(async evento => {
+        if(evento){
+            await Evento.destroy({
+                where: {
+                    codigo
+                }
+            }).then(async retorno => {
+                if(retorno){
+                    await Endereco.destroy({
+                        where: {
+                            codigo: evento.idEndereco
+                        }
+                    })
+                    .then(() => {
+                        return res.status(200).json({
+                            success: 'Evento - excluido com sucesso'
+                        });
+                    })
+                }else{
+                    return res.status(400).send();
+                }
+            })
+            .catch( error => {	
+                return res.status(500).json(error);	
             });
         }else{
             return res.status(400).send();
         }
-    })
-    .catch( error => {	
-        return res.status(500).json(error);	
     });
 
   }

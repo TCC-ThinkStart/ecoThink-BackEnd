@@ -27,19 +27,9 @@ class Usuario extends Model {
                 allowNull: false,
                 unique: true
             },
-            celular: {
-                field: 'ds_celular',
-                type: DataTypes.STRING(40),
-                allowNull: false
-            },
             nivel: {
                 field: 'ds_nivel',
                 type: DataTypes.CHAR(3),
-                allowNull: false
-            },
-            dataNascimento: {
-                field: 'dt_nascimento',
-                type: DataTypes.DATEONLY,
                 allowNull: false
             },
             dataCadastro: {
@@ -49,6 +39,16 @@ class Usuario extends Model {
             dataAlteracao: {
                 field: 'dt_alteracao',
                 type: DataTypes.DATE
+            },
+            celular: {
+                field: 'ds_celular',
+                type: DataTypes.STRING(40),
+                allowNull: true
+            },
+            dataNascimento: {
+                field: 'dt_nascimento',
+                type: DataTypes.DATEONLY,
+                allowNull: true
             },
             cnpj: {
                 field: 'cd_cnpj',
