@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
+const Evento = require('../models/Evento');
 const Endereco = require('../models/Endereco');
 
 module.exports = {
@@ -231,36 +232,51 @@ module.exports = {
   },
   async delete(req, res) {
     const { codigo } = req.params;
-    
+
     await Usuario.findByPk(codigo)
     .then(async usuario => {
         if(usuario){
-            await Usuario.destroy({
+            Evento.findAll({
+                attributes: ['idEndereco'],
                 where: {
-                    codigo
+                    idOrganizador: codigo
                 }
-            }).then(async retorno => {
-                if(retorno){
-                    await Endereco.destroy({
-                        where: {
-                            codigo: usuario.idEndereco
-                        }
-                    })
-                    .then(() => {
-                        const dir = path.resolve("public", "img", "usuario", codigo);
-                        if (fs.existsSync(dir)){
-                            fs.rmdirSync(dir, { recursive : true });
-                            return res.status(200).json({
-                                success: 'Usuario - excluido com sucesso'
-                            });
-                        }
-                    })
-                }else{
-                    return res.status(400).send();
-                }
-            })
-            .catch( error => {	
-                return res.status(500).json(error);	
+            }).then(async eventos => {
+                await Usuario.destroy({
+                    where: {
+                        codigo
+                    }
+                })
+                .then(async retorno => {
+                    if(retorno){
+                        eventos.map(async ({ idEndereco }) => {
+                            await Endereco.destroy({
+                                where: {
+                                    codigo: idEndereco
+                                }
+                            })
+                        });
+                        await Endereco.destroy({
+                            where: {
+                                codigo: usuario.idEndereco
+                            }
+                        })
+                        .then(() => {
+                            const dir = path.resolve("public", "img", "usuario", codigo);
+                            if (fs.existsSync(dir)){
+                                fs.rmdirSync(dir, { recursive : true });
+                                return res.status(200).json({
+                                    success: 'Usuario - excluido com sucesso'
+                                });
+                            }
+                        })
+                    }else{
+                        return res.status(400).send();
+                    }
+                })
+                .catch( error => {	
+                    return res.status(500).json(error);	
+                });
             });
         }else{
             return res.status(400).send();

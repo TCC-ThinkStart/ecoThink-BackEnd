@@ -192,6 +192,10 @@ module.exports = {
             attributes: ['codigo', 'palavra'],
             association: 'palavra',
             through: { attributes: [] }
+        }, {
+            attributes: ['codigo'],
+            association: 'usuario',
+            through: { attributes: [] }
         }]
     })
     .then(evento => {
