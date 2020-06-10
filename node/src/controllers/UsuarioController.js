@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 const Endereco = require('../models/Endereco');
@@ -245,9 +247,13 @@ module.exports = {
                         }
                     })
                     .then(() => {
-                        return res.status(200).json({
-                            success: 'Usuario - excluido com sucesso'
-                        });
+                        const dir = path.resolve("public", "img", "usuario", codigo);
+                        if (fs.existsSync(dir)){
+                            fs.rmdirSync(dir, { recursive : true });
+                            return res.status(200).json({
+                                success: 'Usuario - excluido com sucesso'
+                            });
+                        }
                     })
                 }else{
                     return res.status(400).send();

@@ -8,6 +8,7 @@ const EnderecoRoute = require('./routes/EnderecoRoute');
 const UsuarioRoute = require('./routes/UsuarioRoute');
 const EventoRoute = require('./routes/EventoRoute');
 const PalavraChaveRoute = require('./routes/PalavraChaveRoute');
+const FotoRoute = require('./routes/FotoRoute');
 
 //Rotas - Estado
 routes.use('/estado', EstadoRoute);
@@ -21,5 +22,7 @@ routes.use('/usuario', UsuarioRoute);
 routes.use('/evento', EventoRoute);
 //Rotas - PalavraChave
 routes.use('/palavrachave',PalavraChaveRoute);
+//Rotas - Foto
+routes.use('/foto',FotoRoute);
 
 module.exports = routes;

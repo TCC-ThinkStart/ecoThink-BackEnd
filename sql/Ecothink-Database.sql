@@ -119,7 +119,8 @@ CREATE TABLE tb_usuario(
     tb_endereco(cd_endereco),
     CONSTRAINT fk_foto_perfil_usuario
     FOREIGN KEY (id_foto_perfil) REFERENCES
-    tb_foto(cd_foto),
+    tb_foto(cd_foto)
+    ON DELETE SET NULL,
     CONSTRAINT chk_maior_idade
     CHECK (TIMESTAMPDIFF(year , dt_nascimento, dt_alteracao) >= 18), 
     CONSTRAINT uc_nome 
