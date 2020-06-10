@@ -192,15 +192,21 @@ module.exports = {
             attributes: ['codigo', 'palavra'],
             association: 'palavra',
             through: { attributes: [] }
-        }, {
-            attributes: ['codigo'],
-            association: 'usuario',
-            through: { attributes: [] }
         }]
     })
     .then(evento => {
         if(evento){
-            return res.status(200).json(evento);
+            Evento.count({
+                where: {
+                    codigo: evento.codigo
+                },
+                include: {
+                    association: 'usuario'
+                }
+            }).then(inscritos => {
+                res.header('X-Total-Subscribers-Count', inscritos);
+                return res.status(200).json(evento);
+            })
         }else{
             return res.status(404).send();
         }
