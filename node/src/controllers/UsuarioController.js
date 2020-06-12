@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 const Evento = require('../models/Evento');
@@ -125,11 +126,14 @@ module.exports = {
     });
   },
   async storeUser(req, res) {
-    const { nome, senha, email, celular, dataNascimento, cpf } = req.body;
+    const { nome, email, celular, dataNascimento, cpf } = req.body;
+    let { senha } = req.body;
 
     if(!dataNascimento || dataNascimento == null || dataNascimento == undefined){
         return res.status(400).json({error: { message: 'Insira a data de nascimento'}});
     }
+
+    senha = await bcrypt.hash(senha,10);
     
     await Usuario.create({
         nome, senha, email, nivel: 'USU' ,  celular, dataNascimento, cpf
@@ -146,7 +150,10 @@ module.exports = {
 
   },
   async storeOrg(req, res) {
-    const { nome, senha, email, celular, cnpj } = req.body;
+    const { nome, email, celular, cnpj } = req.body;
+    let { senha } = req.body;
+    
+    senha = await bcrypt.hash(senha,10);
 
     await Usuario.create({
         nome, senha, email, nivel: 'ORG', celular, cnpj
@@ -164,7 +171,12 @@ module.exports = {
   },
   async updateUser(req, res) {
     const { codigo } = req.params;
-    const { nome, senha, email, celular, dataNascimento, cpf } = req.body;
+    const { nome, email, celular, dataNascimento, cpf } = req.body;
+    let { senha } = req.body;
+
+    if(senha){
+        senha = await bcrypt.hash(senha,10);
+    }
 
     await Usuario.update({
         nome, senha, email, celular, dataNascimento, cpf
@@ -198,7 +210,12 @@ module.exports = {
   },
   async updateOrg(req, res) {
     const { codigo } = req.params;
-    const { nome, senha, email, celular, dataNascimento, cnpj } = req.body;
+    const { nome, email, celular, dataNascimento, cnpj } = req.body;
+    let { senha } = req.body;
+
+    if(senha){
+        senha = await bcrypt.hash(senha,10);
+    }
 
     await Usuario.update({
         nome, senha, email, celular, dataNascimento, cnpj
@@ -249,13 +266,15 @@ module.exports = {
                 })
                 .then(async retorno => {
                     if(retorno){
-                        eventos.map(async ({ idEndereco }) => {
-                            await Endereco.destroy({
-                                where: {
-                                    codigo: idEndereco
-                                }
-                            })
-                        });
+                        if(eventos){
+                            eventos.map(async ({ idEndereco }) => {
+                                await Endereco.destroy({
+                                    where: {
+                                        codigo: idEndereco
+                                    }
+                                })
+                            });
+                        }
                         await Endereco.destroy({
                             where: {
                                 codigo: usuario.idEndereco
@@ -265,10 +284,11 @@ module.exports = {
                             const dir = path.resolve("public", "img", "usuario", codigo);
                             if (fs.existsSync(dir)){
                                 fs.rmdirSync(dir, { recursive : true });
-                                return res.status(200).json({
-                                    success: 'Usuario - excluido com sucesso'
-                                });
                             }
+                        
+                            return res.status(200).json({
+                                success: 'Usuario - excluido com sucesso'
+                            });
                         })
                     }else{
                         return res.status(400).send();

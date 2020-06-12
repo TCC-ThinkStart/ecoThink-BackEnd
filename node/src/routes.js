@@ -10,6 +10,8 @@ const EventoRoute = require('./routes/EventoRoute');
 const PalavraChaveRoute = require('./routes/PalavraChaveRoute');
 const FotoRoute = require('./routes/FotoRoute');
 
+const LoginController = require('./controllers/LoginController');
+
 //Rotas - Estado
 routes.use('/estado', EstadoRoute);
 //Rotas - Cidade
@@ -24,5 +26,8 @@ routes.use('/evento', EventoRoute);
 routes.use('/palavrachave',PalavraChaveRoute);
 //Rotas - Foto
 routes.use('/foto',FotoRoute);
+
+//Rota de Login
+routes.post('/login', LoginController.login);
 
 module.exports = routes;
