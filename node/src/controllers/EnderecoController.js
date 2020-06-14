@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
+const Evento = require('../models/Evento');
 const Endereco = require('../models/Endereco');
 
 module.exports = {
@@ -91,35 +92,83 @@ module.exports = {
     });
 
   },
-  async update(req, res) {
+  async updateUser(req, res) {
     const { codigo } = req.params;
     const { cep, logradouro, bairro, numero, idCidade } = req.body;
 
-    await Endereco.update({
-        cep, logradouro, bairro, numero, idCidade
-    },{
-        where: {
-            codigo
-        }
-    })
-    .then(async retorno => {
-        if(retorno >= 1){
-            await Endereco.findByPk(codigo)
-            .then(endereco => {
-                return res.status(200).json({
-                    endereco,
-                    success: 'Endereco - atualizado com sucesso'
-                });
+    await Usuario.findByPk(codigo)
+    .then(async usuario => {
+        if(usuario){
+            await Endereco.update({
+                cep, logradouro, bairro, numero, idCidade
+            },{
+                where: {
+                    codigo: usuario.idEndereco
+                }
             })
-        }else{
-            return res.status(400).send();
+            .then(async retorno => {
+                if(retorno >= 1){
+                    await Endereco.findByPk(usuario.idEndereco)
+                    .then(endereco => {
+                        return res.status(200).json({
+                            endereco,
+                            success: 'Endereco - atualizado com sucesso'
+                        });
+                    })
+                }else{
+                    return res.status(400).send();
+                }
+            })
+            .catch(Sequelize.ValidationError, error => {	
+                return res.status(400).json(error);	
+            })
+            .catch( error => {	
+                return res.status(500).json(error);	
+            });
         }
-    })
-    .catch(Sequelize.ValidationError, error => {	
-        return res.status(400).json(error);	
-    })
-    .catch( error => {	
-        return res.status(500).json(error);	
+        else{
+            return res.status(404).json();
+        }
+    });
+
+  },
+  async updateEvent(req, res) {
+    const { codigo } = req.params;
+    const { cep, logradouro, bairro, numero, idCidade } = req.body;
+
+    await Evento.findByPk(codigo)
+    .then(async evento => {
+        if(evento){
+            await Endereco.update({
+                cep, logradouro, bairro, numero, idCidade
+            },{
+                where: {
+                    codigo: evento.idEndereco
+                }
+            })
+            .then(async retorno => {
+                if(retorno >= 1){
+                    await Endereco.findByPk(evento.idEndereco)
+                    .then(endereco => {
+                        return res.status(200).json({
+                            endereco,
+                            success: 'Endereco - atualizado com sucesso'
+                        });
+                    })
+                }else{
+                    return res.status(400).send();
+                }
+            })
+            .catch(Sequelize.ValidationError, error => {	
+                return res.status(400).json(error);	
+            })
+            .catch( error => {	
+                return res.status(500).json(error);	
+            });
+        }
+        else{
+            return res.status(404).json();
+        }
     });
 
   }

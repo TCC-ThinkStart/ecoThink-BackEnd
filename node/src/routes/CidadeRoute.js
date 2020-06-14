@@ -8,6 +8,7 @@ const routes = express.Router();
 
 //Rotas Cidade
 routes.get('/', CidadeController.findAll);
+routes.get('/estado/:codigo', CidadeController.findByState);
 routes.get('/:codigo', CidadeController.findOne);
 routes.post('/', CidadeController.store);
 routes.put('/:codigo', CidadeController.update);

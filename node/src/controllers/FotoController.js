@@ -46,21 +46,23 @@ module.exports = {
     });
   },
   async storeEvent(req, res) {
-    const { idUsuario, idEvento } = req.params;
+    const { cdUsuario, cdEvento } = req.params;
     const { base64 } = req.body;
 
     await Evento.findOne({
         where: {
-            codigo: idEvento, idOrganizador: idUsuario
+            codigo: cdEvento, idOrganizador: cdUsuario
         }
     })
     .then(async evento => {
         if(evento){
             const dateNow = new Date(Date.now()).toISOString().replace(/[<>:"\/\\|?*.-]+/g, '');
-            const imagePath = path.join('usuario', idUsuario, 'evento', idEvento);
-            const imageTitle = 'U' + idUsuario + 'E' + idEvento + 'D' + dateNow;
+            const imagePath = path.join('usuario', cdUsuario, 'evento', cdEvento);
+            const imageTitle = 'U' + cdUsuario + 'E' + cdEvento + 'D' + dateNow;
             await Foto.create({
-                url: imageBase64(base64, imagePath, imageTitle), idUsuario, idEvento
+                url: imageBase64(base64, imagePath, imageTitle), 
+                idUsuario: cdUsuario, 
+                idEvento: cdEvento
             })
             .then(foto => {
                 return res.status(201).json(foto);

@@ -30,9 +30,9 @@ routes.use('/foto',FotoRoute);
 //Rota de Login
 routes.post('/login', LoginController.login);
 
-const authMiddleware = require('./middlewares/authMiddleware');
-routes.use('/teste', authMiddleware.validateToken, ((req, res) => {
-    res.json({hey: "Hey"});
+const { validateToken } = require('./middlewares/authMiddleware');
+routes.use('/teste', validateToken, ((req, res) => {
+    res.json({codigo:req.codigo, nivel:req.nivel});
 }))
 
 module.exports = routes;

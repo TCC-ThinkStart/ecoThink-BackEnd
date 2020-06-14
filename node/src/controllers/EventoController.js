@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const Sequelize = require('sequelize');
 const Evento = require('../models/Evento');
 const Usuario = require('../models/Usuario');
@@ -377,6 +379,10 @@ module.exports = {
                         }
                     })
                     .then(() => {
+                        const dir = path.resolve("public", "img", "usuario", `${evento.idOrganizador}`, "evento", codigo);
+                        if (fs.existsSync(dir)){
+                            fs.rmdirSync(dir, { recursive : true });
+                        }
                         return res.status(200).json({
                             success: 'Evento - excluido com sucesso'
                         });
