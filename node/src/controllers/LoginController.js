@@ -33,5 +33,13 @@ module.exports = {
                 token: token.generateToken({ codigo, nome, nivel })
             });
         });
+    },
+    async refresh(req, res){
+        const { codigo, nome, nivel  } = req.auth;
+
+        res.status(200).json({ 
+            auth: true,
+            token: token.generateToken({ codigo, nome, nivel })
+        });
     }
 }

@@ -12,6 +12,8 @@ const FotoRoute = require('./routes/FotoRoute');
 
 const LoginController = require('./controllers/LoginController');
 
+const { validateToken } = require('./middlewares/authMiddleware');
+
 //Rotas - Estado
 routes.use('/estado', EstadoRoute);
 //Rotas - Cidade
@@ -29,10 +31,7 @@ routes.use('/foto',FotoRoute);
 
 //Rota de Login
 routes.post('/login', LoginController.login);
-
-const { validateToken, verifyUser, verifyEvent, verifyAdmin } = require('./middlewares/authMiddleware');
-routes.use('/teste/', validateToken, ((req, res) => {
-    res.json(req.auth);
-}));
+//Rota de Renovação de Token
+routes.post('/refreshToken', validateToken, LoginController.refresh);
 
 module.exports = routes;

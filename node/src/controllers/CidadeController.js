@@ -22,15 +22,12 @@ module.exports = {
   },
   async findByState(req, res) {
     const { codigo } = req.params;
-    const { page = 1 } = req.query;
 
     await Cidade.findAndCountAll({
         attributes: ['codigo', 'nome', 'idEstado'],
-        offset: (page - 1) * 5,
         where: {
             idEstado: codigo
-        },
-        limit: 5
+        }
     })
     .then( cidades => {
         res.header('X-Total-Count', cidades.count);

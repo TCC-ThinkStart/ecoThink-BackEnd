@@ -27,7 +27,7 @@ module.exports = {
             if(error){
                 return res.status(401).json({ error: "Token Inválido" });
             }
-            const { codigo, nivel } = decoded;
+            const { codigo, nivel, nome } = decoded;
             await Usuario.findByPk(codigo, {
                 attributes: ['codigo', 'nivel']
             })
@@ -35,7 +35,7 @@ module.exports = {
                 if(usuario){
                     if(usuario.codigo == codigo && usuario.nivel == nivel){
                         req.auth = {
-                            codigo, nivel
+                            codigo, nivel, nome
                         }
                     }
                     return next();

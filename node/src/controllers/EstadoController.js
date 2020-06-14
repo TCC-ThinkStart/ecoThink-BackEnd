@@ -3,12 +3,9 @@ const Estado = require('../models/Estado');
 
 module.exports = {
   async findAll(req, res) {
-    const { page = 1 } = req.query;
 
     await Estado.findAndCountAll({
-        attributes: ['codigo', 'nome', 'sigla'],
-        offset: (page - 1) * 5,
-        limit: 5
+        attributes: ['codigo', 'nome', 'sigla']
     })
     .then( estados => {
         res.header('X-Total-Count', estados.count);
