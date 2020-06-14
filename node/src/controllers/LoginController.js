@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const token = require('../functions/token');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 
@@ -7,6 +8,7 @@ module.exports = {
         const { email = '', nome = '', senha } = req.body;
         
         await Usuario.findOne({
+            attributes: ['codigo', 'nome', 'nivel', 'senha'],
             where: {
                 [Sequelize.Op.or]: [
                     {
@@ -19,12 +21,17 @@ module.exports = {
             }
         }).then(async usuario => {
             if(!usuario){
-                return res.status(400).json({ error: 'Usuário não encontrado'})
+                return res.status(400).json({ auth: false, error: 'Usuário não encontrado' })
             }
             if(!await bcrypt.compare(senha, usuario.senha)){
-                return res.status(400).json({ error: 'Senha inválida'})
+                return res.status(400).json({ auth: false, error: 'Senha inválida' })
             }
-            res.status(200).json(usuario);
+            
+            const { codigo, nome, nivel  } = usuario;
+            res.status(200).json({ 
+                auth: true,
+                token: token.generateToken({ codigo, nome, nivel })
+            });
         });
     }
 }

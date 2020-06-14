@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcryptjs');
+const token = require('../functions/token');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 const Evento = require('../models/Evento');
@@ -139,7 +140,12 @@ module.exports = {
         nome, senha, email, nivel: 'USU' ,  celular, dataNascimento, cpf
     })
     .then(usuario => {
-        return res.status(201).json(usuario);
+        const  { codigo, nome, email, celular, dataNascimento, cpf, nivel  } = usuario;
+        
+        return res.status(201).json({
+            codigo, nome, email, celular, dataNascimento, cpf, nivel ,
+            token: token.generateToken({ codigo, nome, nivel })
+        });
     })
     .catch(Sequelize.ValidationError, error => {	
         return res.status(400).json(error);	
@@ -159,7 +165,12 @@ module.exports = {
         nome, senha, email, nivel: 'ORG', celular, cnpj
     })
     .then(usuario => {
-        return res.status(201).json(usuario);
+        const  { codigo, nome, email, celular, cnpj, nivel  } = usuario;
+        
+        return res.status(201).json({
+            codigo, nome, email, celular, cnpj, nivel ,
+            token: token.generateToken({ codigo, nome, nivel })
+        });
     })
     .catch(Sequelize.ValidationError, error => {	
         return res.status(400).json(error);	
