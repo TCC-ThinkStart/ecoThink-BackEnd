@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const authConfig = require('../../config/auth.json');
 const Usuario = require('../models/Usuario');
+const Evento = require('../models/Evento');
 
 module.exports = {
     validateToken(req, res, next){
@@ -27,16 +28,55 @@ module.exports = {
                 return res.status(401).json({ error: "Token Inválido" });
             }
             const { codigo, nivel } = decoded;
-            await Usuario.findByPk(codigo)
+            await Usuario.findByPk(codigo, {
+                attributes: ['codigo', 'nivel']
+            })
             .then(usuario => {
                 if(usuario){
-                    req.codigo = codigo;
-                    req.nivel = nivel;
+                    if(usuario.codigo == codigo && usuario.nivel == nivel){
+                        req.auth = {
+                            codigo, nivel
+                        }
+                    }
                     return next();
                 }else{
-                    return res.status(404).json({ error: "Usuário Inválido" });
+                    return res.status(404).json({ error: "Usuário não encontrado" });
                 }
             });
         });
+    },
+    verifyUser(req, res, next){
+        const codigo = req.params.cdUsuario ? req.params.cdUsuario : req.params.codigo;
+
+        if(codigo != req.auth.codigo){
+            return res.status(401).json({ error: "Acesso Não Autorizado" });
+        }
+
+        return next();
+    },
+    async verifyEvent(req, res, next){
+        const codigo = req.params.cdEvento ? req.params.cdEvento : req.params.codigo;
+
+        await Evento.findByPk(codigo)
+        .then(evento => {
+            if(evento){
+                if(evento.idOrganizador != req.auth.codigo){
+                    return res.status(401).json({ error: "Acesso Não Autorizado" });
+                }
+                return next();
+            }
+            else{
+                return res.status(404).json({ error: "Evento não encontrado" });
+            }
+        });
+    },
+    async verifyAdmin(req, res, next){
+        const { nivel } = req.auth;
+        
+        if(nivel != "ADM"){
+            return res.status(401).json({ error: "Acesso Não Autorizado" });
+        }
+
+        return next();
     }
 }

@@ -7,6 +7,7 @@ const routes = express.Router();
 //API
 
 //Rotas Evento
+
 //GET
 routes.get('/', EventoController.findAll);
 routes.get('/cidade/:codigo', EventoController.findByCity);
