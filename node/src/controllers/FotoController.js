@@ -131,13 +131,13 @@ module.exports = {
         return res.status(500).json(error);	
     });
   },
-  async delete(req, res) {
-    const { codigo } = req.params;
-    await Foto.findByPk(codigo)
+  async deleteEvent(req, res) {
+    const { cdFoto } = req.params;
+    await Foto.findByPk(cdFoto)
     .then(async foto => {
         await Foto.destroy({
             where: {
-                codigo
+                codigo: cdFoto
             }
         }).then(retorno => {
             if(retorno){
@@ -157,4 +157,43 @@ module.exports = {
         });
     })
   },
+  async deleteProfilePhoto(req, res) {
+    const { codigo } = req.params;
+
+    await Usuario.findByPk(codigo)
+    .then(async usuario => {
+        if(usuario){
+            await Foto.findByPk(usuario.idFotoPerfil)
+            .then(async foto => {
+                if(foto){
+                    await Foto.destroy({
+                        where: {
+                            codigo: foto.codigo
+                        }
+                    }).then(retorno => {
+                        if(retorno){
+                            const dir = path.resolve("public", foto.url);
+                            if (fs.existsSync(dir)){
+                                fs.rmdirSync(dir, { recursive : true });
+                                return res.status(200).json({
+                                    success: 'Foto - excluido com sucesso'
+                                });
+                            }
+                        }else{
+                            return res.status(400).send();
+                        }
+                    })
+                    .catch( error => {	
+                        return res.status(500).json(error);	
+                    });
+                } else{
+                    return res.status(404).send();
+                }
+                
+            });
+        }else{
+            return res.status(500).send();
+        }
+    });
+  }
 }

@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 
 module.exports = {
-    async login(req,res){
+    async loginUser(req,res){
         const { email = '', nome = '', senha } = req.body;
         
         await Usuario.findOne({
@@ -34,7 +34,7 @@ module.exports = {
             });
         });
     },
-    async refresh(req, res){
+    async refreshToken(req, res){
         const { codigo, nome, nivel  } = req.auth;
 
         res.status(200).json({ 

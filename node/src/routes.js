@@ -10,7 +10,7 @@ const EventoRoute = require('./routes/EventoRoute');
 const PalavraChaveRoute = require('./routes/PalavraChaveRoute');
 const FotoRoute = require('./routes/FotoRoute');
 
-const LoginController = require('./controllers/LoginController');
+const { loginUser, refreshToken } = require('./controllers/LoginController');
 
 const { validateToken } = require('./middlewares/authMiddleware');
 
@@ -30,8 +30,8 @@ routes.use('/palavrachave',PalavraChaveRoute);
 routes.use('/foto',FotoRoute);
 
 //Rota de Login
-routes.post('/login', LoginController.login);
+routes.post('/login', loginUser);
 //Rota de Renovação de Token
-routes.post('/refreshToken', validateToken, LoginController.refresh);
+routes.post('/refreshToken', validateToken, refreshToken);
 
 module.exports = routes;

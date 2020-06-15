@@ -37,6 +37,8 @@ module.exports = {
                         req.auth = {
                             codigo, nivel, nome
                         }
+                    } else{
+                        return res.status(404).json({ error: "Usuário inválido" });
                     }
                     return next();
                 }else{
