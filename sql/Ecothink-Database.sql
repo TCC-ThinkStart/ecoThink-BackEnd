@@ -1,6 +1,8 @@
 CREATE DATABASE db_ecothink;
 USE db_ecothink;
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 CREATE TABLE tb_estado(
 	cd_estado INT AUTO_INCREMENT NOT NULL,
     nm_estado VARCHAR(255) NOT NULL,
@@ -146,3 +148,5 @@ CREATE TABLE tb_evento_usuario(
 
 CREATE FUNCTION verifica_status_evento(data datetime)
 RETURNS VARCHAR(10) READS SQL DATA RETURN IF(TIMESTAMPDIFF(second , NOW(), data) >= 0, "aberto", "fechado");
+
+SET FOREIGN_KEY_CHECKS = 1;
