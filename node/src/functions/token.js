@@ -6,5 +6,10 @@ module.exports = {
         return jwt.sign(params, authConfig.secret, {
                 expiresIn: 86400,
         })
+    },
+    generateRecoveryToken(params = {}, password){
+        return jwt.sign(params, password,{
+                expiresIn: 300,
+        })
     }
 }

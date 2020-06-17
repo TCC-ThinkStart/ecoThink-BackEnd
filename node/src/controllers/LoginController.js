@@ -36,7 +36,7 @@ module.exports = {
         });
     },
     async refreshToken(req = request, res = response){
-        const { codigo, nome, nivel  } = req.auth;
+        const { codigo, nome, nivel } = req.auth;
 
         res.status(200).json({ 
             auth: true,

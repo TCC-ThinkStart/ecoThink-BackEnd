@@ -11,8 +11,9 @@ const PalavraChaveRoute = require('./routes/PalavraChaveRoute');
 const FotoRoute = require('./routes/FotoRoute');
 
 const { loginUser, refreshToken } = require('./controllers/LoginController');
+const { recoveryToken, changePassword } = require('./controllers/RecoveryController');
 
-const { validateToken } = require('./middlewares/authMiddleware');
+const { validateToken, validateRecoveryToken } = require('./middlewares/authMiddleware');
 
 //Rotas - Estado
 routes.use('/estado', EstadoRoute);
@@ -33,5 +34,8 @@ routes.use('/foto',FotoRoute);
 routes.post('/login', loginUser);
 //Rota de Renovação de Token
 routes.post('/refreshToken', validateToken, refreshToken);
+//Rotas - Recuperação de Senha
+routes.post('/recoveryPassword', recoveryToken);
+routes.put('/recoveryPassword', validateRecoveryToken, changePassword);
 
 module.exports = routes;
