@@ -1,10 +1,10 @@
-const jwt = require('jsonwebtoken');
-const authConfig = require('../../config/auth.json');
+const { request, response } = require('express');const jwt = require('jsonwebtoken');
+const authConfig = require('../../config/auth');
 const Usuario = require('../models/Usuario');
 const Evento = require('../models/Evento');
 
 module.exports = {
-    validateToken(req, res, next){
+    validateToken(req = request, res = response, next){
         const authHeader = req.headers.authorization;
 
         if(!authHeader){
@@ -47,7 +47,7 @@ module.exports = {
             });
         });
     },
-    verifyUser(req, res, next){
+    verifyUser(req = request, res = response, next){
         const codigo = req.params.cdUsuario ? req.params.cdUsuario : req.params.codigo;
 
         if(codigo != req.auth.codigo){
@@ -56,7 +56,7 @@ module.exports = {
 
         return next();
     },
-    async verifyEvent(req, res, next){
+    async verifyEvent(req = request, res = response, next){
         const codigo = req.params.cdEvento ? req.params.cdEvento : req.params.codigo;
 
         await Evento.findByPk(codigo)
@@ -72,7 +72,7 @@ module.exports = {
             }
         });
     },
-    async verifyAdmin(req, res, next){
+    async verifyAdmin(req = request, res = response, next){
         const { nivel } = req.auth;
         
         if(nivel != "ADM"){

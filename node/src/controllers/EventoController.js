@@ -1,3 +1,4 @@
+const { request, response } = require('express');const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -7,7 +8,7 @@ const Endereco = require('../models/Endereco');
 const PalavraChave = require('../models/PalavraChave');
 
 module.exports = {
-  async findAll(req, res) {
+  async findAll(req = request, res = response) {
     const { page = 1, random } = req.query;
     
     await Evento.findAndCountAll({
@@ -32,7 +33,7 @@ module.exports = {
     });
 
   },
-  async findByCity(req, res) {
+  async findByCity(req = request, res = response) {
     const { codigo } = req.params;
     const { page = 1 } = req.query;
 
@@ -65,7 +66,7 @@ module.exports = {
     });
 
   },
-  async findByUser(req, res) {
+  async findByUser(req = request, res = response) {
     const { codigo } = req.params;
     const { page = 1 } = req.query;
 
@@ -93,7 +94,7 @@ module.exports = {
     });
 
   },
-  async findBySubscribe(req, res) {
+  async findBySubscribe(req = request, res = response) {
     const { codigo } = req.params;
     const { page = 1 } = req.query;
 
@@ -125,7 +126,7 @@ module.exports = {
     });
 
   },
-  async findByKeyword(req, res) {
+  async findByKeyword(req = request, res = response) {
     const { codigo } = req.params;
     const { page = 1 } = req.query;
 
@@ -154,7 +155,7 @@ module.exports = {
     });
 
   },
-  async Search(req, res) {
+  async Search(req = request, res = response) {
     const { pesquisa } = req.params;
     const { page = 1 } = req.query;
 
@@ -184,7 +185,7 @@ module.exports = {
     });
 
   },
-  async findOne(req, res) {
+  async findOne(req = request, res = response) {
     const { codigo } = req.params;
 
     await Evento.findByPk(codigo,{
@@ -217,7 +218,7 @@ module.exports = {
         return res.status(500).json(error);	
     });
   },
-  async store(req, res) {
+  async store(req = request, res = response) {
     const { nome, dataInicio, dataFinal, descricao, idOrganizador,
         cep, logradouro, bairro, numero, idCidade } = req.body;
 
@@ -242,7 +243,7 @@ module.exports = {
     });
 
   },
-  async subscribeUser(req, res) {
+  async subscribeUser(req = request, res = response) {
     const { cdEvento, cdUsuario } = req.params;
     await Evento.findByPk(cdEvento,{
         attributes: ['codigo',[Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']]
@@ -264,7 +265,7 @@ module.exports = {
     });
 
   },
-  async unsubscribeUser(req, res) {
+  async unsubscribeUser(req = request, res = response) {
     const { cdEvento, cdUsuario } = req.params;
     await Evento.findByPk(cdEvento,{
         attributes: ['codigo',[Sequelize.fn('verifica_status_evento', Sequelize.col('dt_final')), 'status']]
@@ -286,7 +287,7 @@ module.exports = {
     });
     
   },
-  async addKeyword(req, res) {
+  async addKeyword(req = request, res = response) {
     const { cdEvento, cdPalavra } = req.params;
     await PalavraChave.findByPk(cdPalavra)
     .then(async palavra => {
@@ -306,7 +307,7 @@ module.exports = {
     });
 
   },
-  async removeKeyword(req, res) {
+  async removeKeyword(req = request, res = response) {
     const { cdEvento, cdPalavra } = req.params;
     await PalavraChave.findByPk(cdPalavra)
     .then(async palavra => {
@@ -326,7 +327,7 @@ module.exports = {
     });
 
   },
-  async update(req, res) {
+  async update(req = request, res = response) {
     const { codigo } = req.params;
     const { nome, dataInicio, dataFinal, descricao } = req.body;
 
@@ -361,7 +362,7 @@ module.exports = {
     });
 
   },
-  async delete(req, res) {
+  async delete(req = request, res = response) {
     const { codigo } = req.params;
     
     await Evento.findByPk(codigo)

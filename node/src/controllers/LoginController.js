@@ -1,10 +1,11 @@
+const { request, response } = require('express');const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const token = require('../functions/token');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 
 module.exports = {
-    async loginUser(req,res){
+    async loginUser(req = request, res = response){
         const { email = '', nome = '', senha } = req.body;
         
         await Usuario.findOne({
@@ -34,7 +35,7 @@ module.exports = {
             });
         });
     },
-    async refreshToken(req, res){
+    async refreshToken(req = request, res = response){
         const { codigo, nome, nivel  } = req.auth;
 
         res.status(200).json({ 

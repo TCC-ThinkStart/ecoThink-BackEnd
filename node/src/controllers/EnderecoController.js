@@ -1,10 +1,11 @@
+const { request, response } = require('express');const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 const Evento = require('../models/Evento');
 const Endereco = require('../models/Endereco');
 
 module.exports = {
-  async findAllUsers(req, res) {
+  async findAllUsers(req = request, res = response) {
     const { page = 1 } = req.query;
 
     await Endereco.findAndCountAll({
@@ -27,7 +28,7 @@ module.exports = {
     });
 
   },
-  async findAllEvent(req, res) {
+  async findAllEvent(req = request, res = response) {
     const { page = 1 } = req.query;
 
     await Endereco.findAndCountAll({
@@ -50,7 +51,7 @@ module.exports = {
     });
 
   },
-  async findOne(req, res) {
+  async findOne(req = request, res = response) {
     const { codigo } = req.params;
 
     await Endereco.findByPk(codigo,{
@@ -67,7 +68,7 @@ module.exports = {
         return res.status(500).json(error);	
     });
   },
-  async storeUser(req, res) {
+  async storeUser(req = request, res = response) {
     const { codigo } = req.params;
     const { cep, logradouro, bairro, numero, idCidade } = req.body;
 
@@ -92,7 +93,7 @@ module.exports = {
     });
 
   },
-  async updateUser(req, res) {
+  async updateUser(req = request, res = response) {
     const { codigo } = req.params;
     const { cep, logradouro, bairro, numero, idCidade } = req.body;
 
@@ -132,7 +133,7 @@ module.exports = {
     });
 
   },
-  async updateEvent(req, res) {
+  async updateEvent(req = request, res = response) {
     const { codigo } = req.params;
     const { cep, logradouro, bairro, numero, idCidade } = req.body;
 

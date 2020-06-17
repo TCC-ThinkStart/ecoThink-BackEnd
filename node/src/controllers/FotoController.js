@@ -1,3 +1,4 @@
+const { request, response } = require('express');const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -7,7 +8,7 @@ const Foto = require('../models/Foto');
 const { imageBase64 } = require('../functions/upload');
 
 module.exports = {
-  async findByEvent(req, res) {
+  async findByEvent(req = request, res = response) {
     const { codigo } = req.params;
     const { page = 1 } = req.query;
 
@@ -28,7 +29,7 @@ module.exports = {
         return res.status(500).json(error);	
     });
   },
-  async findOne(req, res) {
+  async findOne(req = request, res = response) {
     const { codigo } = req.params;
 
     await Foto.findByPk(codigo,{
@@ -45,7 +46,7 @@ module.exports = {
         return res.status(500).json(error);	
     });
   },
-  async storeEvent(req, res) {
+  async storeEvent(req = request, res = response) {
     const { cdUsuario, cdEvento } = req.params;
     const { base64 } = req.body;
 
@@ -78,7 +79,7 @@ module.exports = {
         }
     });
   },
-  async storeProfilePhoto(req, res) {
+  async storeProfilePhoto(req = request, res = response) {
     const { codigo } = req.params;
     const { base64 } = req.body;
 
@@ -105,7 +106,7 @@ module.exports = {
         }
     });
   },
-  async updateProfilePhoto(req, res) {
+  async updateProfilePhoto(req = request, res = response) {
     const { codigo } = req.params;
     const { base64 } = req.body;
 
@@ -131,7 +132,7 @@ module.exports = {
         return res.status(500).json(error);	
     });
   },
-  async deleteEvent(req, res) {
+  async deleteEvent(req = request, res = response) {
     const { cdFoto } = req.params;
     await Foto.findByPk(cdFoto)
     .then(async foto => {
@@ -157,7 +158,7 @@ module.exports = {
         });
     })
   },
-  async deleteProfilePhoto(req, res) {
+  async deleteProfilePhoto(req = request, res = response) {
     const { codigo } = req.params;
 
     await Usuario.findByPk(codigo)

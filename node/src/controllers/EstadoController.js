@@ -1,8 +1,9 @@
+const { request, response } = require('express');const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
 const Estado = require('../models/Estado');
 
 module.exports = {
-  async findAll(req, res) {
+  async findAll(req = request, res = response) {
 
     await Estado.findAndCountAll({
         attributes: ['codigo', 'nome', 'sigla']
@@ -17,7 +18,7 @@ module.exports = {
     });
 
   },
-  async findOne(req, res) {
+  async findOne(req = request, res = response) {
     const { codigo } = req.params;
 
     await Estado.findByPk(codigo,{
@@ -34,7 +35,7 @@ module.exports = {
         return res.status(500).json(error);	
     });
   },
-  async store(req, res) {
+  async store(req = request, res = response) {
     const { nome, sigla } = req.body;
 
     await Estado.create({
@@ -51,7 +52,7 @@ module.exports = {
     });
 
   },
-  async update(req, res) {
+  async update(req = request, res = response) {
     const { codigo } = req.params;
     const { nome, sigla } = req.body;
 
@@ -83,7 +84,7 @@ module.exports = {
     });
 
   },
-  async delete(req, res) {
+  async delete(req = request, res = response) {
     const { codigo } = req.params;
 
     await Estado.destroy({

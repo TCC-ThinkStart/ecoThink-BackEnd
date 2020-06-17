@@ -1,8 +1,9 @@
+const { request, response } = require('express');const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
 const Cidade = require('../models/Cidade');
 
 module.exports = {
-  async findAll(req, res) {
+  async findAll(req = request, res = response) {
     const { page = 1 } = req.query;
 
     await Cidade.findAndCountAll({
@@ -20,7 +21,7 @@ module.exports = {
     });
 
   },
-  async findByState(req, res) {
+  async findByState(req = request, res = response) {
     const { codigo } = req.params;
 
     await Cidade.findAndCountAll({
@@ -39,7 +40,7 @@ module.exports = {
     });
 
   },
-  async findOne(req, res) {
+  async findOne(req = request, res = response) {
     const { codigo } = req.params;
 
     await Cidade.findByPk(codigo,{
@@ -56,7 +57,7 @@ module.exports = {
         return res.status(500).json(error);	
     });
   },
-  async store(req, res) {
+  async store(req = request, res = response) {
     const { nome, idEstado } = req.body;
 
     await Cidade.create({
@@ -73,7 +74,7 @@ module.exports = {
     });
 
   },
-  async update(req, res) {
+  async update(req = request, res = response) {
     const { codigo } = req.params;
     const { nome, idEstado } = req.body;
 
@@ -105,7 +106,7 @@ module.exports = {
     });
 
   },
-  async delete(req, res) {
+  async delete(req = request, res = response) {
     const { codigo } = req.params;
 
     await Cidade.destroy({
