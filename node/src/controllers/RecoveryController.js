@@ -19,10 +19,11 @@ module.exports = {
                     return res.status(400).json({ error: 'Usuário não encontrado' })
                 }
                 
-                const { codigo, nome, nivel, senha } = usuario;
+                const { codigo, senha } = usuario;
+                const action = 'recovery';
                 res.status(200).json({
                     success: 'Token enviado para o e-mail do usuário',
-                    token: token.generateRecoveryToken({ codigo, nome, nivel }, senha)
+                    token: token.generateToken({ codigo, action }, senha)
                 });
             });
         }else{

@@ -28,19 +28,28 @@ module.exports = {
                 return res.status(400).json({ auth: false, error: 'Senha inválida' })
             }
             
-            const { codigo, nome, nivel  } = usuario;
+            const { codigo, nome, nivel } = usuario;
             res.status(200).json({ 
                 auth: true,
-                token: token.generateToken({ codigo, nome, nivel })
+                token: token.generateToken({ codigo, nome, nivel }, usuario.senha)
             });
         });
     },
     async refreshToken(req = request, res = response){
-        const { codigo, nome, nivel } = req.auth;
+        const { codigo } = req.auth;
 
-        res.status(200).json({ 
-            auth: true,
-            token: token.generateToken({ codigo, nome, nivel })
+        await Usuario.findByPk(codigo,{
+            attributes: ['codigo', 'nome', 'nivel', 'senha']
+        }).then(async usuario => {
+            if(!usuario){
+                return res.status(400).json({ auth: false, error: 'Usuário não encontrado' })
+            }
+            
+            const { codigo, nome, nivel } = usuario;
+            res.status(200).json({ 
+                auth: true,
+                token: token.generateToken({ codigo, nome, nivel }, usuario.senha)
+            });
         });
     }
 }

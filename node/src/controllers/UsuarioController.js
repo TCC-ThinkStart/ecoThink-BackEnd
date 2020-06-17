@@ -151,11 +151,11 @@ module.exports = {
         nome, senha, email, nivel: 'USU' ,  celular, dataNascimento, cpf
     })
     .then(usuario => {
-        const  { codigo, nome, email, celular, dataNascimento, cpf, nivel  } = usuario;
+        const  { codigo, nome, email, celular, dataNascimento, cpf, nivel, senha } = usuario;
         
         return res.status(201).json({
-            codigo, nome, email, celular, dataNascimento, cpf, nivel ,
-            token: token.generateToken({ codigo, nome, nivel })
+            usuario: { codigo, nome, email, celular, dataNascimento, cpf, nivel } ,
+            token: token.generateToken({ codigo, nome, nivel }, senha)
         });
     })
     .catch(Sequelize.ValidationError, error => {	
@@ -176,11 +176,11 @@ module.exports = {
         nome, senha, email, nivel: 'ORG', celular, cnpj
     })
     .then(usuario => {
-        const  { codigo, nome, email, celular, cnpj, nivel  } = usuario;
+        const  { codigo, nome, email, celular, cnpj, nivel, senha } = usuario;
         
         return res.status(201).json({
-            codigo, nome, email, celular, cnpj, nivel ,
-            token: token.generateToken({ codigo, nome, nivel })
+            usuario: { codigo, nome, email, celular, cnpj, nivel } ,
+            token: token.generateToken({ codigo, nome, nivel }, senha)
         });
     })
     .catch(Sequelize.ValidationError, error => {	
@@ -204,18 +204,31 @@ module.exports = {
         nome, senha, email, celular, dataNascimento, cpf
     },{
         where: {
-            codigo, nivel: 'USU'
+            codigo, [Sequelize.Op.or]: [
+                {
+                    nivel: {
+                        [Sequelize.Op.eq]: 'ADM'
+                    }
+                },
+                {
+                    nivel: {
+                        [Sequelize.Op.eq]: 'USU'
+                    }
+                }
+            ]
         }
     })
     .then(async retorno => {
         if(retorno >= 1){
             await Usuario.findByPk(codigo, {
-                attributes: ['codigo', 'nome', 'email', 'celular', 'dataNascimento', 'dataCadastro', 'dataAlteracao', 'nivel', 'cpf', 'idEndereco', 'idFotoPerfil']
+                attributes: ['codigo', 'nome', 'nivel', 'email', 'celular', 'dataNascimento', 'cpf', 'senha']
             })
             .then(usuario => {
+                const  { codigo, nome, nivel, email, celular, dataNascimento, cpf, senha } = usuario;
                 return res.status(200).json({
-                    usuario,
-                    success: 'Usuario - atualizado com sucesso'
+                    usuario: { codigo, nome, email, celular, dataNascimento, cpf },
+                    success: 'Usuario - atualizado com sucesso',
+                    token: token.generateToken({ codigo, nome, nivel }, senha)
                 });
             })
         }else{
@@ -249,12 +262,14 @@ module.exports = {
     .then(async retorno => {
         if(retorno >= 1){
             await Usuario.findByPk(codigo, {
-                attributes: ['codigo', 'nome', 'email', 'celular', 'dataNascimento', 'dataCadastro', 'dataAlteracao', 'nivel', 'cnpj', 'idEndereco', 'idFotoPerfil']
+                attributes: ['codigo', 'nome', 'nivel', 'email', 'celular', 'dataNascimento', 'cnpj', 'senha']
             })
             .then(usuario => {
+                const  { codigo, nome, nivel, email, celular, dataNascimento, cnpj, senha } = usuario;
                 return res.status(200).json({
-                    usuario,
-                    success: 'Usuario - atualizado com sucesso'
+                    usuario: { codigo, nome, email, celular, dataNascimento, cnpj },
+                    success: 'Usuario - atualizado com sucesso',
+                    token: token.generateToken({ codigo, nome, nivel }, senha)
                 });
             })
         }else{

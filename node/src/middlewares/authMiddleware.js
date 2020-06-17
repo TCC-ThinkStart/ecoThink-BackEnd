@@ -1,10 +1,9 @@
 const { request, response } = require('express');const jwt = require('jsonwebtoken');
-const authConfig = require('../../config/auth');
 const Usuario = require('../models/Usuario');
 const Evento = require('../models/Evento');
 
 module.exports = {
-    validateToken(req = request, res = response, next){
+    async validateToken(req = request, res = response, next){
         const authHeader = req.headers.authorization;
 
         if(!authHeader){
@@ -23,28 +22,33 @@ module.exports = {
             return res.status(401).json({ error: "Token malformado" });
         }
 
-        jwt.verify(token, authConfig.secret, async (error, decoded) => {
-            if(error){
-                return res.status(401).json({ error: "Token Inválido" });
-            }
-            const { codigo, nivel, nome } = decoded;
-            await Usuario.findByPk(codigo, {
-                attributes: ['codigo', 'nivel']
-            })
-            .then(usuario => {
-                if(usuario){
-                    if(usuario.codigo == codigo && usuario.nivel == nivel){
+        var { codigo, nivel, nome } = jwt.decode(token);
+
+        if(!codigo || !nivel || !nome) {
+            return res.status(401).json({ error: "Token Inválido" });
+        }
+
+        await Usuario.findByPk(codigo, {
+                attributes: ['codigo', 'nivel', 'senha']
+        })
+        .then(usuario => {
+            if(usuario){
+                if(usuario.codigo == codigo && usuario.nivel == nivel){
+                    jwt.verify(token, usuario.senha, async (error, decoded) => {
+                        if(error){
+                            return res.status(401).json({ error: "Token Inválido" });
+                        }
                         req.auth = {
                             codigo, nivel, nome
                         }
-                    } else{
-                        return res.status(404).json({ error: "Usuário inválido" });
-                    }
-                    return next();
-                }else{
-                    return res.status(404).json({ error: "Usuário não encontrado" });
+                        return next();
+                    });
+                } else{
+                    return res.status(404).json({ error: "Usuário inválido" });
                 }
-            });
+            }else{
+                return res.status(404).json({ error: "Usuário não encontrado" });
+            }
         });
     },
     async validateRecoveryToken(req = request, res = response, next){
@@ -66,7 +70,11 @@ module.exports = {
             return res.status(401).json({ error: "Token malformado" });
         }
 
-        var { codigo } = jwt.decode(token);
+        var { codigo, action } = jwt.decode(token);
+
+        if(!action || action != 'recovery'){
+            return res.status(401).json({ error: "Token Inválido" });
+        }
 
         await Usuario.findByPk(codigo, {
                 attributes: ['codigo', 'senha']
