@@ -116,6 +116,8 @@ CREATE TABLE tb_usuario(
     cd_cpf CHAR(11),
     id_endereco INT,
     id_foto_perfil INT,
+    ic_confirmacao BOOLEAN NOT NULL
+    DEFAULT false,
     CONSTRAINT fk_endereco_usuario
     FOREIGN KEY (id_endereco) REFERENCES
     tb_endereco(cd_endereco),
@@ -148,5 +150,8 @@ CREATE TABLE tb_evento_usuario(
 
 CREATE FUNCTION verifica_status_evento(data datetime)
 RETURNS VARCHAR(10) READS SQL DATA RETURN IF(TIMESTAMPDIFF(second , NOW(), data) >= 0, "aberto", "fechado");
+
+CREATE FUNCTION verifica_confirmacao(confirmacao boolean)
+RETURNS VARCHAR(10) READS SQL DATA RETURN IF(confirmacao, "confirmado", "pendente");
 
 SET FOREIGN_KEY_CHECKS = 1;

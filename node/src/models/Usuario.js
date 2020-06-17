@@ -60,6 +60,12 @@ class Usuario extends Model {
                 field: 'cd_cpf',
                 type: DataTypes.CHAR(11),
                 allowNull: true
+            },
+            confirmacao: {
+                field: 'ic_confirmacao',
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
+                defaultValue: false
             }
         }, {
             sequelize, 

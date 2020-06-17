@@ -110,14 +110,24 @@ module.exports = {
 
   },
   async profile(req,res){
-      const { codigo } = req.params;
+    const { codigo } = req.params;
 
     await Usuario.findByPk(codigo,{
-        attributes: ['codigo', 'nome', 'email', 'celular', 'dataNascimento', 'dataCadastro', 'dataAlteracao', 'nivel', 'cnpj', 'cpf', 'idEndereco', 'idFotoPerfil']
+        attributes: ['codigo', 'nome', 'email', 'celular', 'dataNascimento', 'dataCadastro', 'dataAlteracao', 'nivel', 'cnpj', 'cpf', 'idEndereco', 'idFotoPerfil',
+        [Sequelize.fn('verifica_confirmacao', Sequelize.col('ic_confirmacao')), 'confirmacao']]
     })
     .then(usuario => {
         if(usuario){
-            return res.status(200).json(usuario);
+            const { codigo, nome, email, celular, dataNascimento, dataCadastro, dataAlteracao, nivel, cnpj, cpf, idEndereco, idFotoPerfil, confirmacao } = usuario;
+            if(nivel == 'ORG'){
+                return res.status(200).json({
+                    codigo, nome, email, celular, dataNascimento, dataCadastro, dataAlteracao, nivel, cnpj, idEndereco, idFotoPerfil, confirmacao
+                });
+            }else{
+                return res.status(200).json({
+                    codigo, nome, email, celular, dataNascimento, dataCadastro, dataAlteracao, nivel, cpf, idEndereco, idFotoPerfil, confirmacao
+                });
+            }
         }else{
             return res.status(404).send();
         }
