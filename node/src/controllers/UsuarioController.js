@@ -2,6 +2,7 @@ const { request, response } = require('express');const jwt = require('jsonwebtok
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcryptjs');
+const mailer = require('../modules/mailer');
 const token = require('../functions/token');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
@@ -152,7 +153,15 @@ module.exports = {
     })
     .then(usuario => {
         const  { codigo, nome, email, celular, dataNascimento, cpf, nivel, senha } = usuario;
-        
+        mailer.sendMail({
+            to: email,
+            from: 'no-reply@ecothink.com.br',
+            subject: 'Ecothink - Confirmação de E-mail',
+            template: 'accountConfirmation',
+            context: {
+                token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600)
+            }
+        });
         return res.status(201).json({
             usuario: { codigo, nome, email, celular, dataNascimento, cpf, nivel },
             token: token.generateToken({ codigo, nome, nivel }, senha, 86400)
@@ -177,7 +186,15 @@ module.exports = {
     })
     .then(usuario => {
         const  { codigo, nome, email, celular, cnpj, nivel, senha } = usuario;
-        
+        mailer.sendMail({
+            to: email,
+            from: 'no-reply@ecothink.com.br',
+            subject: 'Ecothink - Confirmação de E-mail',
+            template: 'accountConfirmation',
+            context: {
+                token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600)
+            }
+        });
         return res.status(201).json({
             usuario: { codigo, nome, email, celular, cnpj, nivel } ,
             token: token.generateToken({ codigo, nome, nivel }, senha, 86400)
@@ -225,6 +242,17 @@ module.exports = {
             })
             .then(usuario => {
                 const  { codigo, nome, nivel, email, celular, dataNascimento, cpf, senha } = usuario;
+                if(req.body.email){
+                    mailer.sendMail({
+                        to: email,
+                        from: 'no-reply@ecothink.com.br',
+                        subject: 'Ecothink - Confirmação de E-mail',
+                        template: 'accountConfirmation',
+                        context: {
+                            token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600)
+                        }
+                    });
+                }
                 return res.status(200).json({
                     usuario: { codigo, nome, email, celular, dataNascimento, cpf },
                     success: 'Usuario - atualizado com sucesso',
@@ -266,6 +294,17 @@ module.exports = {
             })
             .then(usuario => {
                 const  { codigo, nome, nivel, email, celular, dataNascimento, cnpj, senha } = usuario;
+                if(req.body.email){
+                    mailer.sendMail({
+                        to: email,
+                        from: 'no-reply@ecothink.com.br',
+                        subject: 'Ecothink - Confirmação de E-mail',
+                        template: 'accountConfirmation',
+                        context: {
+                            token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600)
+                        }
+                    });
+                }
                 return res.status(200).json({
                     usuario: { codigo, nome, email, celular, dataNascimento, cnpj },
                     success: 'Usuario - atualizado com sucesso',

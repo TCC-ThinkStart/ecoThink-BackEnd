@@ -6,19 +6,12 @@ const Usuario = require('../models/Usuario');
 
 module.exports = {
     async loginUser(req = request, res = response){
-        const { email = '', nome = '', senha } = req.body;
+        const { email = '', senha } = req.body;
         
         await Usuario.findOne({
             attributes: ['codigo', 'nome', 'nivel', 'senha'],
             where: {
-                [Sequelize.Op.or]: [
-                    {
-                        nome
-                    },
-                    {
-                        email
-                    }
-                ]
+                email
             }
         }).then(async usuario => {
             if(!usuario){

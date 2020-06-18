@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const token = require('../functions/token');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
+const mailer = require('../modules/mailer');
 
 module.exports = {
     async recoveryToken(req = request, res = response){
@@ -10,7 +11,7 @@ module.exports = {
         
         if(email){
             await Usuario.findOne({
-                attributes: ['codigo', 'nome', 'nivel', 'senha'],
+                attributes: ['codigo', 'nome', 'nivel', 'email', 'senha'],
                 where: {
                     email
                 }
@@ -18,12 +19,26 @@ module.exports = {
                 if(!usuario){
                     return res.status(400).json({ error: 'Usuário não encontrado' })
                 }
-                
-                const { codigo, senha } = usuario;
-                res.status(200).json({
-                    success: 'Token enviado para o e-mail do usuário',
-                    token: token.generateToken({ codigo, action: 'recovery' }, senha, 600)
+
+                const { codigo, senha, email } = usuario;
+
+                mailer.sendMail({
+                    to: email,
+                    from: 'no-reply@ecothink.com.br',
+                    subject: 'Ecothink - Recuperação de Senha',
+                    template: 'recoveryPassword',
+                    context: { 
+                        token: token.generateToken({ codigo, action: 'recovery' }, senha, 600) 
+                    }
+                }, (error) => {
+                    if (error){
+                        return res.status(400).send({ error: 'Email não enviado' });
+                    }
+                    res.status(200).json({
+                        success: 'Token enviado para o e-mail do usuário',
+                    });
                 });
+                
             });
         }else{
             return res.status(400).json({ error: 'Email inválido' })
