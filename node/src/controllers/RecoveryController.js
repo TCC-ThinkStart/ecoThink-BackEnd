@@ -20,10 +20,9 @@ module.exports = {
                 }
                 
                 const { codigo, senha } = usuario;
-                const action = 'recovery';
                 res.status(200).json({
                     success: 'Token enviado para o e-mail do usuário',
-                    token: token.generateToken({ codigo, action }, senha)
+                    token: token.generateToken({ codigo, action: 'recovery' }, senha, 600)
                 });
             });
         }else{

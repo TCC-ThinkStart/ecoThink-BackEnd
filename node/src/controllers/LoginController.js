@@ -31,7 +31,7 @@ module.exports = {
             const { codigo, nome, nivel } = usuario;
             res.status(200).json({ 
                 auth: true,
-                token: token.generateToken({ codigo, nome, nivel }, usuario.senha)
+                token: token.generateToken({ codigo, nome, nivel }, usuario.senha, 86400)
             });
         });
     },
@@ -48,7 +48,7 @@ module.exports = {
             const { codigo, nome, nivel } = usuario;
             res.status(200).json({ 
                 auth: true,
-                token: token.generateToken({ codigo, nome, nivel }, usuario.senha)
+                token: token.generateToken({ codigo, nome, nivel }, usuario.senha, 86400)
             });
         });
     }

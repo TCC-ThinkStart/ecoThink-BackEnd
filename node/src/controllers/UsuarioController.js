@@ -154,8 +154,8 @@ module.exports = {
         const  { codigo, nome, email, celular, dataNascimento, cpf, nivel, senha } = usuario;
         
         return res.status(201).json({
-            usuario: { codigo, nome, email, celular, dataNascimento, cpf, nivel } ,
-            token: token.generateToken({ codigo, nome, nivel }, senha)
+            usuario: { codigo, nome, email, celular, dataNascimento, cpf, nivel },
+            token: token.generateToken({ codigo, nome, nivel }, senha, 86400)
         });
     })
     .catch(Sequelize.ValidationError, error => {	
@@ -180,7 +180,7 @@ module.exports = {
         
         return res.status(201).json({
             usuario: { codigo, nome, email, celular, cnpj, nivel } ,
-            token: token.generateToken({ codigo, nome, nivel }, senha)
+            token: token.generateToken({ codigo, nome, nivel }, senha, 86400)
         });
     })
     .catch(Sequelize.ValidationError, error => {	
@@ -228,7 +228,7 @@ module.exports = {
                 return res.status(200).json({
                     usuario: { codigo, nome, email, celular, dataNascimento, cpf },
                     success: 'Usuario - atualizado com sucesso',
-                    token: token.generateToken({ codigo, nome, nivel }, senha)
+                    token: token.generateToken({ codigo, nome, nivel }, senha, 86400)
                 });
             })
         }else{
@@ -269,7 +269,7 @@ module.exports = {
                 return res.status(200).json({
                     usuario: { codigo, nome, email, celular, dataNascimento, cnpj },
                     success: 'Usuario - atualizado com sucesso',
-                    token: token.generateToken({ codigo, nome, nivel }, senha)
+                    token: token.generateToken({ codigo, nome, nivel }, senha, 86400)
                 });
             })
         }else{
