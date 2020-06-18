@@ -1,4 +1,5 @@
-const { request, response } = require('express');const jwt = require('jsonwebtoken');
+const { request, response } = require('express');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const token = require('../functions/token');
 const Sequelize = require('sequelize');
