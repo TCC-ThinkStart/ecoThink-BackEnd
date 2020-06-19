@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 const mailer = require('../modules/mailer');
 const path = require('path');
+const { sender } = require('../../config/mail');
 
 module.exports = {
     async confirmationToken(req = request, res = response){
@@ -20,7 +21,7 @@ module.exports = {
 
             mailer.sendMail({
                 to: email,
-                from: 'no-reply@ecothink.com.br',
+                from: sender,
                 subject: 'Ecothink - Confirmação de E-mail',
                 template: 'accountConfirmation',
                 attachments: [{

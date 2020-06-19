@@ -8,6 +8,7 @@ const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 const Evento = require('../models/Evento');
 const Endereco = require('../models/Endereco');
+const { sender } = require('../../config/mail');
 
 module.exports = {
   async findAll(req = request, res = response) {
@@ -155,9 +156,9 @@ module.exports = {
         const  { codigo, nome, email, celular, dataNascimento, cpf, nivel, senha } = usuario;
         mailer.sendMail({
             to: email,
-            from: 'no-reply@ecothink.com.br',
-            subject: 'Ecothink - Confirmação de E-mail',
-            template: 'accountConfirmation',
+            from: sender,
+            subject: 'Ecothink - Confirmação de Cadastro',
+            template: 'accountCreateConfirmation',
             attachments: [{
                 filename: 'logo.png',
                 path: path.resolve('src','resources','img','logo.png'),
@@ -194,9 +195,9 @@ module.exports = {
         const  { codigo, nome, email, celular, cnpj, nivel, senha } = usuario;
         mailer.sendMail({
             to: email,
-            from: 'no-reply@ecothink.com.br',
-            subject: 'Ecothink - Confirmação de E-mail',
-            template: 'accountConfirmation',
+            from: sender,
+            subject: 'Ecothink - Confirmação de Cadastro',
+            template: 'accountCreateConfirmation',
             attachments: [{
                 filename: 'logo.png',
                 path: path.resolve('src','resources','img','logo.png'),
@@ -224,13 +225,18 @@ module.exports = {
     const { codigo } = req.params;
     const { nome, email, celular, dataNascimento, cpf } = req.body;
     let { senha } = req.body;
+    let confirmacao;
 
     if(senha){
         senha = await bcrypt.hash(senha,10);
     }
 
+    if(email){
+        confirmacao = false
+    }
+
     await Usuario.update({
-        nome, senha, email, celular, dataNascimento, cpf
+        nome, senha, email, celular, dataNascimento, cpf, confirmacao
     },{
         where: {
             codigo, [Sequelize.Op.or]: [
@@ -257,9 +263,9 @@ module.exports = {
                 if(req.body.email){
                     mailer.sendMail({
                         to: email,
-                        from: 'no-reply@ecothink.com.br',
-                        subject: 'Ecothink - Confirmação de E-mail',
-                        template: 'accountConfirmation',
+                        from: sender,
+                        subject: 'Ecothink - Alteração de E-mail',
+                        template: 'accountUpdateConfirmation',
                         attachments: [{
                             filename: 'logo.png',
                             path: path.resolve('src','resources','img','logo.png'),
@@ -293,13 +299,18 @@ module.exports = {
     const { codigo } = req.params;
     const { nome, email, celular, dataNascimento, cnpj } = req.body;
     let { senha } = req.body;
+    let confirmacao;
 
     if(senha){
         senha = await bcrypt.hash(senha,10);
     }
 
+    if(email){
+        confirmacao = false
+    }
+
     await Usuario.update({
-        nome, senha, email, celular, dataNascimento, cnpj
+        nome, senha, email, celular, dataNascimento, cnpj, confirmacao
     },{
         where: {
             codigo, nivel: 'ORG'
@@ -315,9 +326,9 @@ module.exports = {
                 if(req.body.email){
                     mailer.sendMail({
                         to: email,
-                        from: 'no-reply@ecothink.com.br',
-                        subject: 'Ecothink - Confirmação de E-mail',
-                        template: 'accountConfirmation',
+                        from: sender,
+                        subject: 'Ecothink - Alteração de E-mail',
+                        template: 'accountUpdateConfirmation',
                         attachments: [{
                             filename: 'logo.png',
                             path: path.resolve('src','resources','img','logo.png'),

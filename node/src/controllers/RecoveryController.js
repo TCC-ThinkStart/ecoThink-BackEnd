@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 const mailer = require('../modules/mailer');
 const path = require('path');
+const { sender } = require('../../config/mail');
 
 module.exports = {
     async recoveryToken(req = request, res = response){
@@ -25,7 +26,7 @@ module.exports = {
 
                 mailer.sendMail({
                     to: email,
-                    from: 'no-reply@ecothink.com.br',
+                    from: sender,
                     subject: 'Ecothink - Recuperação de Senha',
                     template: 'recoveryPassword',
                     attachments: [{
