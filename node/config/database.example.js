@@ -8,4 +8,4 @@ module.exports = {
       underscored: true,
       timestamps: false
     },
-  };
+};

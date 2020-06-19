@@ -3,6 +3,7 @@ const token = require('../functions/token');
 const Sequelize = require('sequelize');
 const Usuario = require('../models/Usuario');
 const mailer = require('../modules/mailer');
+const path = require('path');
 
 module.exports = {
     async confirmationToken(req = request, res = response){
@@ -15,15 +16,21 @@ module.exports = {
                 return res.status(400).json({ error: 'Usuário não encontrado' })
             }
 
-            const { codigo, senha, email } = usuario;
+            const { codigo, nome, senha, email } = usuario;
 
             mailer.sendMail({
                 to: email,
                 from: 'no-reply@ecothink.com.br',
                 subject: 'Ecothink - Confirmação de E-mail',
                 template: 'accountConfirmation',
+                attachments: [{
+                    filename: 'logo.png',
+                    path: path.resolve('src','resources','img','logo.png'),
+                    cid: 'logo'
+                }],
                 context: {
-                    token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600)
+                    token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600),
+                    nome
                 }
             }, (error) => {
                 if (error){

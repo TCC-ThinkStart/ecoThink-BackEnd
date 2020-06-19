@@ -158,8 +158,14 @@ module.exports = {
             from: 'no-reply@ecothink.com.br',
             subject: 'Ecothink - Confirmação de E-mail',
             template: 'accountConfirmation',
+            attachments: [{
+                filename: 'logo.png',
+                path: path.resolve('src','resources','img','logo.png'),
+                cid: 'logo'
+            }],
             context: {
-                token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600)
+                token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600),
+                nome
             }
         });
         return res.status(201).json({
@@ -191,8 +197,14 @@ module.exports = {
             from: 'no-reply@ecothink.com.br',
             subject: 'Ecothink - Confirmação de E-mail',
             template: 'accountConfirmation',
+            attachments: [{
+                filename: 'logo.png',
+                path: path.resolve('src','resources','img','logo.png'),
+                cid: 'logo'
+            }],
             context: {
-                token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600)
+                token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600),
+                nome
             }
         });
         return res.status(201).json({
@@ -248,8 +260,14 @@ module.exports = {
                         from: 'no-reply@ecothink.com.br',
                         subject: 'Ecothink - Confirmação de E-mail',
                         template: 'accountConfirmation',
+                        attachments: [{
+                            filename: 'logo.png',
+                            path: path.resolve('src','resources','img','logo.png'),
+                            cid: 'logo'
+                        }],
                         context: {
-                            token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600)
+                            token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600),
+                            nome
                         }
                     });
                 }
@@ -300,8 +318,14 @@ module.exports = {
                         from: 'no-reply@ecothink.com.br',
                         subject: 'Ecothink - Confirmação de E-mail',
                         template: 'accountConfirmation',
+                        attachments: [{
+                            filename: 'logo.png',
+                            path: path.resolve('src','resources','img','logo.png'),
+                            cid: 'logo'
+                        }],
                         context: {
-                            token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600)
+                            token: token.generateToken({ codigo, action: 'confirmation' }, senha, 600),
+                            nome
                         }
                     });
                 }
