@@ -17,8 +17,8 @@ module.exports = {
         where: {
             idEvento: codigo
         },
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( fotos => {
         res.header('X-Total-Count', fotos.count);

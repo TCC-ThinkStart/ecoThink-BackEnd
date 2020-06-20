@@ -30,6 +30,6 @@ routes.delete('/:codigo', validateToken, verifyUser, UsuarioController.delete);
 
 //Confirmação de E-mail
 routes.post('/confirmacao', validateToken, ConfirmationController.confirmationToken);
-routes.put('/confirmacao/:codigo', validateConfirmationToken, verifyUser, ConfirmationController.confirmEmail);
+routes.put('/confirmacao/confirmar', validateConfirmationToken, ConfirmationController.confirmEmail);
 
 module.exports = routes;

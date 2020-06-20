@@ -16,8 +16,8 @@ module.exports = {
 
     await Usuario.findAndCountAll({
         attributes: ['codigo', 'nome', 'email', 'celular', 'dataNascimento', 'dataCadastro', 'dataAlteracao', 'nivel', 'idEndereco', 'idFotoPerfil'],
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( usuarios => {
         res.header('X-Total-Count', usuarios.count);
@@ -37,8 +37,8 @@ module.exports = {
         where: {
             nivel: 'USU'
         },
-        offset: (page - 1) * 5,
-        limit: 5,
+        offset: (page - 1) * 10,
+        limit: 10,
     })
     .then( usuarios => {
         res.header('X-Total-Count', usuarios.count);
@@ -58,8 +58,8 @@ module.exports = {
         where: {
             nivel: 'ORG'
         },
-        offset: (page - 1) * 5,
-        limit: 5,
+        offset: (page - 1) * 10,
+        limit: 10,
     })
     .then( usuarios => {
         res.header('X-Total-Count', usuarios.count);
@@ -99,8 +99,8 @@ module.exports = {
                 [Sequelize.Op.like]: `%${pesquisa}%`
             }
         },
-        offset: (page - 1) * 5,
-        limit: 5,
+        offset: (page - 1) * 10,
+        limit: 10,
     })
     .then( usuarios => {
         res.header('X-Total-Count', usuarios.count);
@@ -239,18 +239,7 @@ module.exports = {
         nome, senha, email, celular, dataNascimento, cpf, confirmacao
     },{
         where: {
-            codigo, [Sequelize.Op.or]: [
-                {
-                    nivel: {
-                        [Sequelize.Op.eq]: 'ADM'
-                    }
-                },
-                {
-                    nivel: {
-                        [Sequelize.Op.eq]: 'USU'
-                    }
-                }
-            ]
+            codigo, nivel: 'USU'
         }
     })
     .then(async retorno => {
@@ -297,7 +286,7 @@ module.exports = {
   },
   async updateOrg(req = request, res = response) {
     const { codigo } = req.params;
-    const { nome, email, celular, dataNascimento, cnpj } = req.body;
+    const { nome, email, celular, cnpj } = req.body;
     let { senha } = req.body;
     let confirmacao;
 
@@ -310,10 +299,21 @@ module.exports = {
     }
 
     await Usuario.update({
-        nome, senha, email, celular, dataNascimento, cnpj, confirmacao
+        nome, senha, email, celular, cnpj, confirmacao
     },{
         where: {
-            codigo, nivel: 'ORG'
+            codigo, [Sequelize.Op.or]: [
+                {
+                    nivel: {
+                        [Sequelize.Op.eq]: 'ADM'
+                    }
+                },
+                {
+                    nivel: {
+                        [Sequelize.Op.eq]: 'ORG'
+                    }
+                }
+            ]
         }
     })
     .then(async retorno => {

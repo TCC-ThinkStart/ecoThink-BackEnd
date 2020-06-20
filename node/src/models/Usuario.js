@@ -26,6 +26,9 @@ class Usuario extends Model {
                 field: 'ds_email',
                 type: DataTypes.STRING(255),
                 allowNull: false,
+                validate: {
+                    isEmail: true
+                },
                 unique: true
             },
             nivel: {

@@ -8,8 +8,9 @@ module.exports = {
 
     await Cidade.findAndCountAll({
         attributes: ['codigo', 'nome', 'idEstado'],
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10,
+        order: [['nome', 'ASC']]
     })
     .then( cidades => {
         res.header('X-Total-Count', cidades.count);
@@ -28,7 +29,8 @@ module.exports = {
         attributes: ['codigo', 'nome', 'idEstado'],
         where: {
             idEstado: codigo
-        }
+        },
+        order: [['nome', 'ASC']]
     })
     .then( cidades => {
         res.header('X-Total-Count', cidades.count);

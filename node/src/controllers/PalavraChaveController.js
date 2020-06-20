@@ -8,8 +8,8 @@ module.exports = {
 
     await PalavraChave.findAndCountAll({
         attributes: ['codigo', 'palavra'],
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( palavras => {
         res.header('X-Total-Count', palavras.count);

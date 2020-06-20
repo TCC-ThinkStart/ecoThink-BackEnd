@@ -19,8 +19,8 @@ module.exports = {
             association: 'palavra',
             through: { attributes: [] }
         }],
-        offset: (page - 1) * 5,
-        limit: 5,
+        offset: (page - 1) * 10,
+        limit: 10,
         order: random != null ? Sequelize.fn('rand') : [['dataInicio', 'DESC']]
     })
     .then( eventos => {
@@ -53,8 +53,8 @@ module.exports = {
             association: 'palavra',
             through: { attributes: [] }
         }],
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( eventos => {
         res.header('X-Total-Count', eventos.count);
@@ -81,8 +81,8 @@ module.exports = {
             association: 'palavra',
             through: { attributes: [] }
         }],
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( eventos => {
         res.header('X-Total-Count', eventos.count);
@@ -113,8 +113,8 @@ module.exports = {
             association: 'palavra',
             through: { attributes: [] }
         }],
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( eventos => {
         res.header('X-Total-Count', eventos.count);
@@ -142,8 +142,8 @@ module.exports = {
                 codigo
             }
         }],
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( eventos => {
         res.header('X-Total-Count', eventos.count);
@@ -172,8 +172,8 @@ module.exports = {
             association: 'palavra',
             through: { attributes: [] }
         }],
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( eventos => {
         res.header('X-Total-Count', eventos.count);

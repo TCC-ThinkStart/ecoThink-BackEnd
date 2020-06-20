@@ -14,9 +14,9 @@ module.exports = {
             required: true,
             attributes: ['codigo','nome'],
             association: 'usuario'
-        }],
-        offset: (page - 1) * 5,
-        limit: 5
+        }], 
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( enderecos => {
         res.header('X-Total-Count', enderecos.count);
@@ -38,8 +38,8 @@ module.exports = {
             attributes: ['codigo','nome'],
             association: 'evento'
         }],
-        offset: (page - 1) * 5,
-        limit: 5
+        offset: (page - 1) * 10,
+        limit: 10
     })
     .then( enderecos => {
         res.header('X-Total-Count', enderecos.count);
