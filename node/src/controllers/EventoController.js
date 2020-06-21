@@ -233,7 +233,10 @@ module.exports = {
         }]
     })
     .then(evento => {
-        return res.status(201).json(evento);
+        const { codigo, nome, dataInicio, dataFinal, descricao, dataCadastro, dataAlteracao, idOrganizador, endereco } = evento;
+        return res.status(201).json(
+            { codigo, nome, dataInicio, dataFinal, descricao, dataCadastro, dataAlteracao, idOrganizador, endereco }
+        );
     })
     .catch(Sequelize.ValidationError, error => {	
         return res.status(400).json(error);	

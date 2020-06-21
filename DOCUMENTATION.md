@@ -367,6 +367,8 @@ Esta API usa 3 tipos de Tokens:
   
   <b>Rota:</b> `GET /cidade`
   <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
   <b>Autenticação:</b> Não
   <br />
   <b>Response:</b>
@@ -538,3 +540,5 @@ Esta API usa 3 tipos de Tokens:
   }
   ```
 </details>
+
+## Endereço
