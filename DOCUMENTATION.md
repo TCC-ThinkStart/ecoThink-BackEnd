@@ -198,3 +198,161 @@ Esta API usa 3 tipos de Tokens:
   }
   ```
 </details>
+
+## Estado
+
+<details>
+  <summary>
+    <b>Mostrar Todos</b> - <i>Retorna os valores de todos os estados</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /estado`
+  <br />
+  <b>Autenticação:</b> Não
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Cidade", //String
+        "sigla": "SG" //String
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Um</b> - <i>Retorna os valores de um estado</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /estado/:codigo`
+  <br />
+  <b>Autenticação:</b> Não
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "nome": "Cidade", //String
+	"sigla": "SG" //String
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cadastrar Estado</b> - <i>Acesso Permitido somente a Administradores</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /estado`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  ```
+  {
+	"nome": "Cidade",
+	"sigla": "SG"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "nome": "Cidade", //String
+	"sigla": "SG" //String
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Atualizar Estado</b> - <i>Acesso Permitido somente a Administradores</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `PUT /estado`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  Só serão atualizados os dados presentes na requisição.
+  
+  ```
+  {
+	"nome": "Cidade",
+	"sigla": "SG"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "estado": {
+        "codigo": 1,
+        "nome": "Cidade",
+        "sigla": "SG"
+    },
+    "success": "Estado - atualizado com sucesso"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Excluir Estado</b> - <i>Acesso Permitido somente a Administradores</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `DELETE /estado/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Estado - excluido com sucesso"
+  }
+  ```
+</details>
