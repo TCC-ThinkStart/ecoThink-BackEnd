@@ -61,7 +61,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -119,7 +119,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Recuperação de Senha* 
+    Authorization: Bearer *Token de Recuperação de Senha* 
   }
   ```
 
@@ -157,7 +157,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -185,7 +185,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Confirmação de Conta* 
+    Authorization: Bearer *Token de Confirmação de Conta* 
   }
   ```
 
@@ -260,7 +260,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -299,7 +299,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -343,7 +343,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -444,7 +444,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -483,7 +483,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -527,7 +527,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -559,7 +559,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -601,7 +601,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -641,7 +641,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -650,12 +650,12 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-      "codigo": 1, //Number
-      "cep": "12345678", //String
-      "logradouro": "logradouro", //String
-      "bairro": "bairro", //String
-      "numero": 1, //Number
-      "idCidade": 1 //Number
+    "codigo": 1, //Number
+    "cep": "12345678", //String
+    "logradouro": "logradouro", //String
+    "bairro": "bairro", //String
+    "numero": 1, //Number
+    "idCidade": 1 //Number
   }
   ```
 </details>
@@ -674,7 +674,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -695,12 +695,12 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-      "codigo": 1, //Number
-      "cep": "12345678", //String
-      "logradouro": "logradouro", //String
-      "bairro": "bairro", //String
-      "numero": 1, //Number
-      "idCidade": 1 //Number
+    "codigo": 1, //Number
+    "cep": "12345678", //String
+    "logradouro": "logradouro", //String
+    "bairro": "bairro", //String
+    "numero": 1, //Number
+    "idCidade": 1 //Number
   }
   ```
 </details>
@@ -719,7 +719,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -742,12 +742,12 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-      "codigo": 1, //Number
-      "cep": "12345678", //String
-      "logradouro": "logradouro", //String
-      "bairro": "bairro", //String
-      "numero": 1, //Number
-      "idCidade": 1 //Number
+    "codigo": 1, //Number
+    "cep": "12345678", //String
+    "logradouro": "logradouro", //String
+    "bairro": "bairro", //String
+    "numero": 1, //Number
+    "idCidade": 1 //Number
   }
   ```
 </details>
@@ -766,7 +766,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   { 
-     Authorization: Bearer *Token de Usuário* 
+    Authorization: Bearer *Token de Usuário* 
   }
   ```
 
@@ -789,12 +789,181 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-      "codigo": 1, //Number
-      "cep": "12345678", //String
-      "logradouro": "logradouro", //String
-      "bairro": "bairro", //String
-      "numero": 1, //Number
-      "idCidade": 1 //Number
+    "codigo": 1, //Number
+    "cep": "12345678", //String
+    "logradouro": "logradouro", //String
+    "bairro": "bairro", //String
+    "numero": 1, //Number
+    "idCidade": 1 //Number
+  }
+  ```
+</details>
+
+## Palavra Chave
+
+<details>
+  <summary>
+    <b>Mostrar Todos</b> - <i>Retorna os valores de todas as Palavras Chave</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /palavrachave`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "palavra": "Palavra" //String
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Um</b> - <i>Retorna os valores de uma Palavra Chave</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /palavrachave/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "palavra": "Palavra" //String
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cadastrar Palavra Chave</b> - <i>Acesso Permitido somente à Administradores</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /palavrachave`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  ```
+  {
+    "palavra": "Palavra"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "palavra": "Palavra" //String
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Atualizar Palavra Chave</b> - <i>Acesso Permitido somente à Administradores</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `PUT /palavrachave/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  Só serão atualizados os dados presentes na requisição.
+  
+  ```
+  {
+    "palavra": "Palavra"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "palavra": "Palavra" //String
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Excluir Palavra Chave</b> - <i>Acesso Permitido somente à Administradores</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `DELETE /palavrachave/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Palavra Chave - excluido com sucesso"
   }
   ```
 </details>
