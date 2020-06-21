@@ -41,8 +41,8 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "auth": true,
-    "token": "*Token de Usuário*"
+    "auth": true, //Boolean
+    "token": "*Token de Usuário*" //String
   }
   ```
 </details>
@@ -70,8 +70,8 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "auth": true,
-    "token": "*Token de Usuário*"
+    "auth": true, //Boolean
+    "token": "*Token de Usuário*" //String
   }
   ```
 </details>
@@ -100,7 +100,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Token enviado para o e-mail do usuário"
+    "success": "Token enviado para o e-mail do usuário" //String
   }
   ```
 </details>
@@ -136,7 +136,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Senha alterada com sucesso"
+    "success": "Senha alterada com sucesso" //String
   }
   ```
 </details>
@@ -166,7 +166,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Token enviado para o e-mail do usuário"
+    "success": "Token enviado para o e-mail do usuário" //String
   }
   ```
 </details>
@@ -194,7 +194,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "E-mail confirmado com sucesso"
+    "success": "E-mail confirmado com sucesso" //String
   }
   ```
 </details>
@@ -217,7 +217,7 @@ Esta API usa 3 tipos de Tokens:
   [
     {
         "codigo": 1, //Number
-        "nome": "Cidade", //String
+        "nome": "Estado", //String
         "sigla": "SG" //String
     },
     ...
@@ -240,7 +240,7 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "codigo": 1, //Number
-    "nome": "Cidade", //String
+    "nome": "Estado", //String
 	"sigla": "SG" //String
   }
   ```
@@ -248,7 +248,7 @@ Esta API usa 3 tipos de Tokens:
 
 <details>
   <summary>
-    <b>Cadastrar Estado</b> - <i>Acesso Permitido somente a Administradores</i>
+    <b>Cadastrar Estado</b> - <i>Acesso Permitido somente à Administradores</i>
   </summary>
   <br/>
   
@@ -269,7 +269,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   {
-	"nome": "Cidade",
+	"nome": "Estado",
 	"sigla": "SG"
   }
   ```
@@ -279,7 +279,7 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "codigo": 1, //Number
-    "nome": "Cidade", //String
+    "nome": "Estado", //String
 	"sigla": "SG" //String
   }
   ```
@@ -287,11 +287,11 @@ Esta API usa 3 tipos de Tokens:
 
 <details>
   <summary>
-    <b>Atualizar Estado</b> - <i>Acesso Permitido somente a Administradores</i>
+    <b>Atualizar Estado</b> - <i>Acesso Permitido somente à Administradores</i>
   </summary>
   <br/>
   
-  <b>Rota:</b> `PUT /estado`
+  <b>Rota:</b> `PUT /estado/:codigo`
   <br />
   <b>Autenticação:</b> Sim
   <br />
@@ -310,7 +310,7 @@ Esta API usa 3 tipos de Tokens:
   
   ```
   {
-	"nome": "Cidade",
+	"nome": "Estado",
 	"sigla": "SG"
   }
   ```
@@ -320,9 +320,9 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "estado": {
-        "codigo": 1,
-        "nome": "Cidade",
-        "sigla": "SG"
+        "codigo": 1, //Number
+        "nome": "Estado", //String
+        "sigla": "SG" //String
     },
     "success": "Estado - atualizado com sucesso"
   }
@@ -331,7 +331,7 @@ Esta API usa 3 tipos de Tokens:
 
 <details>
   <summary>
-    <b>Excluir Estado</b> - <i>Acesso Permitido somente a Administradores</i>
+    <b>Excluir Estado</b> - <i>Acesso Permitido somente à Administradores</i>
   </summary>
   <br/>
   
@@ -353,6 +353,188 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "success": "Estado - excluido com sucesso"
+  }
+  ```
+</details>
+
+## Cidade
+
+<details>
+  <summary>
+    <b>Mostrar Todos</b> - <i>Retorna os valores de todas as cidades</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /cidade`
+  <br />
+  <b>Autenticação:</b> Não
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Cidade", //String
+        "idEstado": 1 //Number
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (por Estado)</b> - <i>Retorna os valores de todas as cidades de um estado</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET cidade/estado/:codigo`
+  <br />
+  <b>Autenticação:</b> Não
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Cidade", //String
+        "idEstado": 1 //Number
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Um</b> - <i>Retorna os valores de uma cidade</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /cidade/:codigo`
+  <br />
+  <b>Autenticação:</b> Não
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "nome": "Estado", //String
+	"idEstado": 1 //Number
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cadastrar Cidade</b> - <i>Acesso Permitido somente à Administradores</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /cidade`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  ```
+  {
+	"nome": "Cidade",
+	"idEstado": 1
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "nome": "Cidade", //String
+	"idEstado": 1 //Number
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Atualizar Cidade</b> - <i>Acesso Permitido somente à Administradores</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `PUT /cidade/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  Só serão atualizados os dados presentes na requisição.
+  
+  ```
+  {
+	"nome": "Estado",
+	"idEstado": 1
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "cidade": {
+        "codigo": 1, //Number
+        "nome": "Estado", //String
+        "idEstado": 1 //Number
+    },
+    "success": "Cidade - atualizado com sucesso"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Excluir Cidade</b> - <i>Acesso Permitido somente à Administradores</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `DELETE /cidade/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Cidade - excluido com sucesso"
   }
   ```
 </details>
