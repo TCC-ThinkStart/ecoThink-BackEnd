@@ -542,3 +542,259 @@ Esta API usa 3 tipos de Tokens:
 </details>
 
 ## Endereço
+
+<details>
+  <summary>
+    <b>Mostrar Todos (Usuários)</b> - <i>Retorna os endereços de todos os usuários</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /endereco/usuario`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "cep": "12345678", //String
+        "logradouro": "logradouro", //String
+        "bairro": "bairro", //String
+        "numero": 1, //Number
+        "idCidade": 1, //Number
+        "usuario": {
+            "codigo": 1, //Number
+            "nome": "usuario" //String
+        }
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (Eventos)</b> - <i>Retorna os endereços de todos os eventos</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /endereco/evento`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "cep": "12345678", //String
+        "logradouro": "logradouro", //String
+        "bairro": "bairro", //String
+        "numero": 1, //Number
+        "idCidade": 1, //Number
+        "usuario": {
+            "codigo": 1, //Number
+            "nome": "usuario" //String
+        }
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Um</b> - <i>Retorna os valores de um evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /endereco/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+      "codigo": 1, //Number
+      "cep": "12345678", //String
+      "logradouro": "logradouro", //String
+      "bairro": "bairro", //String
+      "numero": 1, //Number
+      "idCidade": 1 //Number
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cadastrar Endereço (Usuário)</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /endereco/usuario/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  ```
+  {
+    "cep": "12345678",
+    "logradouro": "logradouro",
+    "bairro": "bairro",
+    "numero": 1, // Opcional
+    "idCidade": 1
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+      "codigo": 1, //Number
+      "cep": "12345678", //String
+      "logradouro": "logradouro", //String
+      "bairro": "bairro", //String
+      "numero": 1, //Number
+      "idCidade": 1 //Number
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Atualizar Endereço (Usuário)</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `PUT /endereco/usuario/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  Só serão atualizados os dados presentes na requisição.
+  
+  ```
+  {
+    "cep": "12345678",
+    "logradouro": "logradouro",
+    "bairro": "bairro",
+    "numero": 1, // Opcional
+    "idCidade": 1
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+      "codigo": 1, //Number
+      "cep": "12345678", //String
+      "logradouro": "logradouro", //String
+      "bairro": "bairro", //String
+      "numero": 1, //Number
+      "idCidade": 1 //Number
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Atualizar Endereço (Evento)</b> - <i>Acesso Permitido somente ao Usuário Organizador do Evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `PUT /endereco/evento/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+     Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  Só serão atualizados os dados presentes na requisição.
+  
+  ```
+  {
+    "cep": "12345678",
+    "logradouro": "logradouro",
+    "bairro": "bairro",
+    "numero": 1, // Opcional
+    "idCidade": 1
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+      "codigo": 1, //Number
+      "cep": "12345678", //String
+      "logradouro": "logradouro", //String
+      "bairro": "bairro", //String
+      "numero": 1, //Number
+      "idCidade": 1 //Number
+  }
+  ```
+</details>
