@@ -5,11 +5,11 @@ Esta é a documentação da Utilização da API Ecothink
 # Autenticação
 
 Esta API usa 3 tipos de Tokens:
-- Token de Usuário
+- Token de Usuário - Tem a duração de 1 dia
     - Administrador
     - Organização e Padrão
-- Token de Recuperação de Senha
-- Token de Confirmação de Conta
+- Token de Recuperação de Senha - Tem a duração de 10 minutos
+- Token de Confirmação de Conta - Tem a duração de 10 minutos
 
 > Obs: A identificação de Usuário Administrador, Organização e Padrão será feita no backend via JWT
 
