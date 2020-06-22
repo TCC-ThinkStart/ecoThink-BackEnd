@@ -28,7 +28,7 @@ Esta API usa 3 tipos de Tokens:
 - [Foto](#foto)
 - [Evento](#evento)
     - [Inscrição](#inscrição)
-- [Usuário](#usuario)
+- [Usuário](#usuário)
 
 ## Login
 
