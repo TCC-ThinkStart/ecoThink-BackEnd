@@ -643,7 +643,7 @@ Esta API usa 3 tipos de Tokens:
 
 <details>
   <summary>
-    <b>Mostrar Um</b> - <i>Retorna os valores de um evento</i>
+    <b>Mostrar Um</b> - <i>Retorna os valores de um endereco</i>
   </summary>
   <br/>
   
@@ -989,7 +989,7 @@ Esta API usa 3 tipos de Tokens:
 
 <details>
   <summary>
-    <b>Mostrar Todos (por Evento)</b> - <i>Retorna os valores de todas as Palavras Chave</i>
+    <b>Mostrar Todos (por Evento)</b> - <i>Retorna os valores de todas as Fotos</i>
   </summary>
   <br/>
   
@@ -1025,7 +1025,7 @@ Esta API usa 3 tipos de Tokens:
 
 <details>
   <summary>
-    <b>Mostrar Um</b> - <i>Retorna os valores de uma Palavra Chave</i>
+    <b>Mostrar Um</b> - <i>Retorna os valores de uma Foto</i>
   </summary>
   <br/>
   
@@ -1529,9 +1529,7 @@ Esta API usa 3 tipos de Tokens:
   </summary>
   <br/>
   
-  <b>Rota:</b> `GET /evento/pesquisa/:pesquisa`
-  <br />
-  <b>Paginação (10 por página):</b> `?page=`
+  <b>Rota:</b> `GET /evento/:codigo`
   <br />
   <b>Autenticação:</b> Sim
   <br />
@@ -2099,12 +2097,12 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "usuario": {
-        "codigo": 1,
-        "nome": "Usuario",
-        "email": "usuario@email.com",
-        "celular": "1234567890",
-        "dataNascimento": "AAAA-MM-DD",
-        "cpf": "12345678901"
+        "codigo": 1, //Number
+        "nome": "Usuario", //String
+        "email": "usuario@email.com", //String
+        "celular": "1234567890", //String
+        "dataNascimento": "AAAA-MM-DD", //String
+        "cpf": "12345678901" //String
     }
     "token": "*Token de Usuário*"
   }
@@ -2138,13 +2136,13 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "usuario": {
-        "codigo": 1,
-        "nome": "Usuario",
-        "email": "usuario@email.com",
-        "celular": "1234567890",
-        "cnpj": "12345678901234",
+        "codigo": 1, //Number
+        "nome": "Usuario", //String
+        "email": "usuario@email.com", //String
+        "celular": "1234567890", //String
+        "cnpj": "12345678901234", //String
     }
-    "token": "*Token de Usuário*"
+    "token": "*Token de Usuário*" // String
   }
   ```
 </details>
@@ -2188,15 +2186,15 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "usuario": {
-        "codigo": 1,
-        "nome": "Usuario",
-        "email": "usuario@email.com",
+        "codigo": 1, //Number
+        "nome": "Usuario", //String
+        "email": "usuario@email.com", //String
         "celular": "1234567890",
-        "dataNascimento": "AAAA-MM-DD",
-        "cpf": "12345678901"
+        "dataNascimento": "AAAA-MM-DD", //String
+        "cpf": "12345678901" //String
     },
-    "success": "Usuário - atualizado com sucesso",
-    "token": "*Token de Usuário*"
+    "success": "Usuário - atualizado com sucesso", //String
+    "token": "*Token de Usuário*" //String
   }
   ```
 </details>
@@ -2239,14 +2237,14 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "usuario": {
-        "codigo": 1,
-        "nome": "Usuario",
-        "email": "usuario@email.com",
-        "celular": "1234567890",
-        "cnpj": "12345678901234",
+        "codigo": 1, //Number
+        "nome": "Usuario", //String
+        "email": "usuario@email.com", //String
+        "celular": "1234567890", //String
+        "cnpj": "12345678901234", //String
     },
-    "success": "Usuário - atualizado com sucesso",
-    "token": "*Token de Usuário*"
+    "success": "Usuário - atualizado com sucesso", //String
+    "token": "*Token de Usuário*" //String
   }
   ```
 </details>
@@ -2274,7 +2272,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Usuário - excluido com sucesso"
+    "success": "Usuário - excluido com sucesso" //String
   }
   ```
 </details>
