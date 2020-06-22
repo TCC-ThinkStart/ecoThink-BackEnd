@@ -33,7 +33,7 @@ Esta API usa 3 tipos de Tokens:
 > ### Sobre Headers
 > Rotas com paginação retornam a Header 'X-Total-Count' que mostra o total de dados daquela rota.
 >
-> A rota Evento - Mostrar Um retorna a Header 'X-Total-Subscribers-Count que mostra o total de inscritos daquele evento
+> A rota Evento - Mostrar Um retorna a Header 'X-Total-Subscribers-Count que mostra o total de inscritos daquele evento.
 
 ## Login
 
