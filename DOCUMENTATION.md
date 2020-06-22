@@ -934,8 +934,11 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "codigo": 1, //Number
-    "palavra": "Palavra" //String
+    "palavra": {
+        "codigo": 1, //Number
+        "palavra": "Palavra" //String
+    },
+    "success": "Palavra Chave - atualizado com sucesso"
   }
   ```
 </details>
@@ -964,6 +967,246 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "success": "Palavra Chave - excluido com sucesso"
+  }
+  ```
+</details>
+
+## Foto
+
+<details>
+  <summary>
+    <b>Mostrar Todos (por Evento)</b> - <i>Retorna os valores de todas as Palavras Chave</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /foto/evento/:codigo`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "url": "*URL da Foto*", //String
+        "idUsuario": 1, //Number
+        "idEvento": 1 //Number
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Um</b> - <i>Retorna os valores de uma Palavra Chave</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /foto/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "url": "*URL da Foto*", //String
+    "idUsuario": 1, //Number
+    "idEvento": 1 //Number
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cadastrar Foto (Evento)</b> - <i>Acesso Permitido somente ao Usuário Organizador do Evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /foto/usuario/:cdUsuario/evento/:cdEvento`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  ```
+  {
+    "base64": "*Foto em Base64*"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "url": "*URL da Foto*", //String
+    "idUsuario": 1, //Number
+    "idEvento": 1 //Number
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cadastrar Foto de Perfil (Usuário)</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /foto/usuario/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  ```
+  {
+    "base64": "*Foto em Base64*"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "url": "*URL da Foto*", //String
+    "idUsuario": 1 //Number
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Atualizar Foto de Perfil (Usuário)</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `PUT /foto/usuario/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  Só serão atualizados os dados presentes na requisição.
+  
+  ```
+  {
+    "base64": "*Foto em Base64*"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Foto de Perfil - atualizado com sucesso"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Excluir Foto (Evento)</b> - <i>Acesso Permitido somente ao Usuário Organizador do Evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `DELETE /foto/:cdFoto/usuario/:cdUsuario/evento/:cdEvento`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Foto - excluido com sucesso"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Excluir Foto de Perfil (Usuário)</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `DELETE /foto/usuario/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Foto de Perfil - excluido com sucesso"
   }
   ```
 </details>

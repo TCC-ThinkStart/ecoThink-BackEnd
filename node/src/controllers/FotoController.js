@@ -117,7 +117,9 @@ module.exports = {
             const imageTitle = 'U' + codigo;
             const updateImage = imageBase64(base64, imagePath, imageTitle);
             if(updateImage){
-                return res.status(200).send();  
+                return res.status(200).send({
+                    success: 'Foto de Perfil - atualizado com sucesso'
+                });  
             }else{
                 return res.status(400).send(); 
             }
@@ -177,7 +179,7 @@ module.exports = {
                             if (fs.existsSync(dir)){
                                 fs.rmdirSync(dir, { recursive : true });
                                 return res.status(200).json({
-                                    success: 'Foto - excluido com sucesso'
+                                    success: 'Foto de Perfil - excluido com sucesso'
                                 });
                             }
                         }else{
