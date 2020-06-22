@@ -571,13 +571,13 @@ Esta API usa 3 tipos de Tokens:
     {
         "codigo": 1, //Number
         "cep": "12345678", //String
-        "logradouro": "logradouro", //String
-        "bairro": "bairro", //String
+        "logradouro": "Logradouro", //String
+        "bairro": "Bairro", //String
         "numero": 1, //Number
         "idCidade": 1, //Number
         "usuario": {
             "codigo": 1, //Number
-            "nome": "usuario" //String
+            "nome": "Usuario" //String
         }
     },
     ...
@@ -613,13 +613,13 @@ Esta API usa 3 tipos de Tokens:
     {
         "codigo": 1, //Number
         "cep": "12345678", //String
-        "logradouro": "logradouro", //String
-        "bairro": "bairro", //String
+        "logradouro": "Logradouro", //String
+        "bairro": "Bairro", //String
         "numero": 1, //Number
         "idCidade": 1, //Number
         "usuario": {
             "codigo": 1, //Number
-            "nome": "usuario" //String
+            "nome": "Usuario" //String
         }
     },
     ...
@@ -652,8 +652,8 @@ Esta API usa 3 tipos de Tokens:
   {
     "codigo": 1, //Number
     "cep": "12345678", //String
-    "logradouro": "logradouro", //String
-    "bairro": "bairro", //String
+    "logradouro": "Logradouro", //String
+    "bairro": "Bairro", //String
     "numero": 1, //Number
     "idCidade": 1 //Number
   }
@@ -684,8 +684,8 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "cep": "12345678",
-    "logradouro": "logradouro",
-    "bairro": "bairro",
+    "logradouro": "Logradouro",
+    "bairro": "Bairro",
     "numero": 1, // Opcional
     "idCidade": 1
   }
@@ -697,8 +697,8 @@ Esta API usa 3 tipos de Tokens:
   {
     "codigo": 1, //Number
     "cep": "12345678", //String
-    "logradouro": "logradouro", //String
-    "bairro": "bairro", //String
+    "logradouro": "Logradouro", //String
+    "bairro": "Bairro", //String
     "numero": 1, //Number
     "idCidade": 1 //Number
   }
@@ -731,8 +731,8 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "cep": "12345678",
-    "logradouro": "logradouro",
-    "bairro": "bairro",
+    "logradouro": "Logradouro",
+    "bairro": "Bairro",
     "numero": 1, // Opcional
     "idCidade": 1
   }
@@ -744,8 +744,8 @@ Esta API usa 3 tipos de Tokens:
   {
     "codigo": 1, //Number
     "cep": "12345678", //String
-    "logradouro": "logradouro", //String
-    "bairro": "bairro", //String
+    "logradouro": "Logradouro", //String
+    "bairro": "Bairro", //String
     "numero": 1, //Number
     "idCidade": 1 //Number
   }
@@ -778,8 +778,8 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "cep": "12345678",
-    "logradouro": "logradouro",
-    "bairro": "bairro",
+    "logradouro": "Logradouro",
+    "bairro": "Bairro",
     "numero": 1, // Opcional
     "idCidade": 1
   }
@@ -791,8 +791,8 @@ Esta API usa 3 tipos de Tokens:
   {
     "codigo": 1, //Number
     "cep": "12345678", //String
-    "logradouro": "logradouro", //String
-    "bairro": "bairro", //String
+    "logradouro": "Logradouro", //String
+    "bairro": "Bairro", //String
     "numero": 1, //Number
     "idCidade": 1 //Number
   }
@@ -1207,6 +1207,605 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "success": "Foto de Perfil - excluido com sucesso"
+  }
+  ```
+</details>
+
+## Evento
+
+<details>
+  <summary>
+    <b>Mostrar Todos</b> - <i>Retorna os valores de todos os Eventos</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /evento`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Em Ordem Aleátoria:</b> `?random=true`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Evento", //String
+        "dataInicio": "*Data Formato ISO*", //String
+        "dataFinal": "*Data Formato ISO*", //String
+        "descricao": "Descrição", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "idOrganizador": 1, //Number
+        "idEndereco": 1, //Number
+        "status": "aberto", //Ou "fechado" //String
+        "palavra": [
+            {
+                "codigo": 1, //Number
+                "palavra": "Palavra" //String
+            },
+            ...
+        ]
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (por Cidade)</b> - <i>Retorna os valores de todos os Eventos de uma Cidade</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /evento/cidade/:codigo`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Evento", //String
+        "dataInicio": "*Data Formato ISO*", //String
+        "dataFinal": "*Data Formato ISO*", //String
+        "descricao": "Descrição", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "idOrganizador": 1, //Number
+        "idEndereco": 1, //Number
+        "status": "aberto", //Ou "fechado" //String
+        "palavra": [
+            {
+                "codigo": 1, //Number
+                "palavra": "Palavra" //String
+            },
+            ...
+        ]
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (por Usuário)</b> - <i>Retorna os valores de todos os Eventos de um Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /evento/usuario/:codigo`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Evento", //String
+        "dataInicio": "*Data Formato ISO*", //String
+        "dataFinal": "*Data Formato ISO*", //String
+        "descricao": "Descrição", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "idOrganizador": 1, //Number
+        "idEndereco": 1, //Number
+        "status": "aberto", //Ou "fechado" //String
+        "palavra": [
+            {
+                "codigo": 1, //Number
+                "palavra": "Palavra" //String
+            },
+            ...
+        ]
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (por Palavra Chave)</b> - <i>Retorna os valores de todos os Eventos com determinada Palavra Chave</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /evento/palavrachave/:codigo`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Evento", //String
+        "dataInicio": "*Data Formato ISO*", //String
+        "dataFinal": "*Data Formato ISO*", //String
+        "descricao": "Descrição", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "idOrganizador": 1, //Number
+        "idEndereco": 1, //Number
+        "status": "aberto", //Ou "fechado" //String
+        "palavra": [
+            {
+                "codigo": 1, //Number
+                "palavra": "Palavra" //String
+            },
+            ...
+        ]
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (Inscrito)</b> - <i>Retorna os valores de todos os Eventos em que o Usuário está Inscrito</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /evento/usuario/:codigo/inscrito`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Evento", //String
+        "dataInicio": "*Data Formato ISO*", //String
+        "dataFinal": "*Data Formato ISO*", //String
+        "descricao": "Descrição", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "idOrganizador": 1, //Number
+        "idEndereco": 1, //Number
+        "status": "aberto", //Ou "fechado" //String
+        "palavra": [
+            {
+                "codigo": 1, //Number
+                "palavra": "Palavra" //String
+            },
+            ...
+        ]
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (Pesquisa)</b> - <i>Retorna os valores de todos os Eventos com o nome pesquisado</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /evento/pesquisa/:pesquisa`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Evento", //String
+        "dataInicio": "*Data Formato ISO*", //String
+        "dataFinal": "*Data Formato ISO*", //String
+        "descricao": "Descrição", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "idOrganizador": 1, //Number
+        "idEndereco": 1, //Number
+        "status": "aberto", //Ou "fechado" //String
+        "palavra": [
+            {
+                "codigo": 1, //Number
+                "palavra": "Palavra" //String
+            },
+            ...
+        ]
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Um</b> - <i>Retorna os valores de um Evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /evento/pesquisa/:pesquisa`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+      "codigo": 1, //Number
+      "nome": "Evento", //String
+      "dataInicio": "*Data Formato ISO*", //String
+      "dataFinal": "*Data Formato ISO*", //String
+      "descricao": "Descrição", //String
+      "dataCadastro": "*Data Formato ISO*", //String
+      "dataAlteracao": "*Data Formato ISO*", //String
+      "idOrganizador": 1, //Number
+      "idEndereco": 1, //Number
+      "status": "aberto", //Ou "fechado" //String
+      "palavra": [
+          {
+              "codigo": 1, //Number
+              "palavra": "Palavra" //String
+          },
+          ...
+      ]
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cadastrar Evento</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /evento`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  ```
+  {
+    "nome": "Evento",
+	"dataInicio": "AAAA-MM-DD",
+	"dataFinal": "AAAA-MM-DD",
+	"descricao": "Descrição", //Opcional
+	"idOrganizador": 1,
+	"cep": "12345678",
+	"logradouro": "Logradouro",
+	"bairro": "Bairro",
+	"numero": 1, //Opcional
+	"idCidade": 1
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "nome": "Evento", //String
+    "dataInicio": "*Data Formato ISO*", //String
+    "dataFinal": "*Data Formato ISO*", //String
+    "descricao": "Descrição", //String
+    "dataCadastro": "*Data Formato ISO*", //String
+    "dataAlteracao": "*Data Formato ISO*", //String
+    "idOrganizador": 1, //Number
+    "endereco": {
+        "codigo": 1, //Number
+        "cep": "12345678", //String
+        "logradouro": "Logradouro", //String
+        "bairro": "Bairro", //String
+        "numero": 1, //Number
+        "idCidade": 1 //Number
+    }
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Adicionar Palavra Chave</b> - <i>Acesso Permitido somente ao Usuário Organizador do Evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /evento/:cdEvento/palavrachave/:cdPalavra`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Palavra Chave - Adicionada"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Atualizar Evento</b> - <i>Acesso Permitido somente ao Usuário Organizador do Evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `PUT /evento/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  Só serão atualizados os dados presentes na requisição.
+  
+  ```
+  {
+    "nome": "Evento",
+	"dataInicio": "AAAA-MM-DD",
+	"dataFinal": "AAAA-MM-DD",
+	"descricao": "Descrição",
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "evento": {
+        "codigo": 1, //Number
+        "nome": "Evento", //String
+        "dataInicio": "*Data Formato ISO*", //String
+        "dataFinal": "*Data Formato ISO*", //String
+        "descricao": "Descrição", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "idOrganizador": 1, //Number
+        "idEndereco": 1, //Number
+        "status": "aberto", //String
+    },
+    "success": "Evento - atualizado com sucesso"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Remover Palavra Chave</b> - <i>Acesso Permitido somente ao Usuário Organizador do Evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `DELETE /evento/:cdEvento/palavrachave/:cdPalavra`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Palavra Chave - Removida"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Excluir Evento</b> - <i>Acesso Permitido somente ao Usuário Organizador do Evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `DELETE /evento/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Evento - excluido com sucesso"
+  }
+  ```
+</details>
+
+### Inscrição
+
+<details>
+  <summary>
+    <b>Inscrição no Evento</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /evento/:cdEvento/usuario/:cdUsuario`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Inscrição Bem Sucedida"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cancelar Inscrição</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `DELETE /evento/:cdEvento/usuario/:cdUsuario`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Inscrição Cancelada"
   }
   ```
 </details>
