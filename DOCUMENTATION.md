@@ -16,6 +16,20 @@ Esta API usa 3 tipos de Tokens:
 
 # Rotas da API
 
+## Índice
+
+- [Login](#login)
+- [Recuperação de Senha](#recuperação-de-senha)
+- [Confirmação de Conta](#confirmação-de-conta)
+- [Estado](#estado)
+- [Cidade](#cidade)
+- [Endereço](#endereço)
+- [Palavra Chave](#palavra-chave)
+- [Foto](#foto)
+- [Evento](#evento)
+    - [Inscrição](#inscrição)
+- [Usuário](#usuario)
+
 ## Login
 
 <details>
@@ -1806,6 +1820,461 @@ Esta API usa 3 tipos de Tokens:
   ```
   {
     "success": "Inscrição Cancelada"
+  }
+  ```
+</details>
+
+## Usuário
+
+<details>
+  <summary>
+    <b>Mostrar Todos</b> - <i>Retorna os valores de todos os Usuários</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /usuario`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Usuario", //String
+        "email": "usuario@email.com", //String
+        "celular": "1234567890", //String
+        "dataNascimento": "AAAA-MM-DD", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "nivel": "USU", //String
+        "idEndereco": 1, //Number
+        "idFotoPerfil": 1 //Number
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (Padrão)</b> - <i>Retorna os valores de todos os Usuários - Padrão</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /usuario/usuarios`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Usuario", /String
+        "email": "usuario@email.com", /String
+        "celular": "1234567890", /String
+        "dataNascimento": "AAAA-MM-DD", /String
+        "dataCadastro": "*Data Formato ISO*", /String
+        "dataAlteracao": "*Data Formato ISO*", /String
+        "nivel": "USU", /String
+        "idEndereco": 1, //Number
+        "idFotoPerfil": 1 //Number
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (Organizações)</b> - <i>Retorna os valores de todos os Usuários - Organização</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /usuario/organizacoes`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Usuario", //String
+        "email": "usuario@email.com", //String
+        "celular": "1234567890", //String
+        "dataNascimento": "AAAA-MM-DD", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "nivel": "ORG", //String
+        "idEndereco": 1, //Number
+        "idFotoPerfil": 1 //Number
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Todos (Pesquisa)</b> - <i>Retorna os valores de todos os Usuários com o nome pesquisado</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /usuario/pesquisa/:pesquisa`
+  <br />
+  <b>Paginação (10 por página):</b> `?page=`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  [
+    {
+        "codigo": 1, //Number
+        "nome": "Usuario", //String
+        "email": "usuario@email.com", //String
+        "celular": "1234567890", //String
+        "dataNascimento": "AAAA-MM-DD", //String
+        "dataCadastro": "*Data Formato ISO*", //String
+        "dataAlteracao": "*Data Formato ISO*", //String
+        "nivel": "ORG", //String
+        "idEndereco": 1, //Number
+        "idFotoPerfil": 1 //Number
+    },
+    ...
+  ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Mostrar Um</b> - <i>Retorna os valores de um Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /usuario/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "nome": "Usuario", //String
+    "email": "usuario@email.com", //String
+    "celular": "1234567890", //String
+    "dataNascimento": "AAAA-MM-DD", //Somente se Nível: "USU" //String
+    "dataCadastro": "*Data Formato ISO*", //String
+    "dataAlteracao": "*Data Formato ISO*", //String
+    "nivel": "USU", //String
+    "idEndereco": 1, //Number
+    "idFotoPerfil": 1 //Number
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Perfil</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `GET /usuario/perfil/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "codigo": 1, //Number
+    "nome": "Usuario", //String
+    "email": "usuario@email.com", //String
+    "celular": "1234567890", //String
+    "dataNascimento": "AAAA-MM-DD", //Somente se Nível: "USU" //String
+    "dataCadastro": "*Data Formato ISO*", //String
+    "dataAlteracao": "*Data Formato ISO*", //String
+    "cpf": "12345678901", //Somente se Nível: "USU" //String
+    "cnpj": "12345678901234", //Somente se Nível: "ORG" //String
+    "nivel": "USU", //String
+    "idEndereco": 1, //Number
+    "idFotoPerfil": 1, //Number
+    "confirmacao": "confirmado" //Ou "pendente" //String
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cadastrar Usuário</b> - <i>Cadastra um Usuário Padrão</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /usuario`
+  <br />
+  <b>Autenticação:</b> Não
+  <br />
+  <b>Body:</b>
+  
+  ```
+  {
+    "nome": "Usuario",
+    "email": "usuario@email.com",
+    "celular": "1234567890", //Opcional
+    "dataNascimento": "AAAA-MM-DD",
+    "cpf": "12345678901", //Opcional
+    "senha": "senha"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "usuario": {
+        "codigo": 1,
+        "nome": "Usuario",
+        "email": "usuario@email.com",
+        "celular": "1234567890",
+        "dataNascimento": "AAAA-MM-DD",
+        "cpf": "12345678901"
+    }
+    "token": "*Token de Usuário*"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Cadastrar Organizador</b> - <i>Cadastra um Usuário Organizador</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `POST /usuario/organizacao`
+  <br />
+  <b>Autenticação:</b> Não
+  <br />
+  <b>Body:</b>
+  
+  ```
+  {
+    "nome": "Usuario",
+    "email": "usuario@email.com",
+    "celular": "1234567890", //Opcional
+    "cnpj": "12345678901234",
+    "senha": "senha"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "usuario": {
+        "codigo": 1,
+        "nome": "Usuario",
+        "email": "usuario@email.com",
+        "celular": "1234567890",
+        "cnpj": "12345678901234",
+    }
+    "token": "*Token de Usuário*"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Atualizar Usuário</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `PUT /usuario/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  Só serão atualizados os dados presentes na requisição.
+
+  ```
+  {
+    "nome": "Usuario",
+    "email": "usuario@email.com",
+    "celular": "1234567890",
+    "dataNascimento": "AAAA-MM-DD",
+    "cpf": "12345678901",
+    "senha": "senha"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "usuario": {
+        "codigo": 1,
+        "nome": "Usuario",
+        "email": "usuario@email.com",
+        "celular": "1234567890",
+        "dataNascimento": "AAAA-MM-DD",
+        "cpf": "12345678901"
+    },
+    "success": "Usuário - atualizado com sucesso",
+    "token": "*Token de Usuário*"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Atualizar Organizador</b> - <i>Acesso Permitido somente ao Usuário</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `PUT /usuario/organizacao/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Body:</b>
+  
+  Só serão atualizados os dados presentes na requisição.
+
+  ```
+  {
+    "nome": "Usuario",
+    "email": "usuario@email.com",
+    "celular": "1234567890", //Opcional
+    "cnpj": "12345678901234",
+    "senha": "senha"
+  }
+  ```
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "usuario": {
+        "codigo": 1,
+        "nome": "Usuario",
+        "email": "usuario@email.com",
+        "celular": "1234567890",
+        "cnpj": "12345678901234",
+    },
+    "success": "Usuário - atualizado com sucesso",
+    "token": "*Token de Usuário*"
+  }
+  ```
+</details>
+
+<details>
+  <summary>
+    <b>Excluir Evento</b> - <i>Acesso Permitido somente ao Usuário Organizador do Evento</i>
+  </summary>
+  <br/>
+  
+  <b>Rota:</b> `DELETE /usuario/:codigo`
+  <br />
+  <b>Autenticação:</b> Sim
+  <br />
+  <b>Header:</b>
+  
+  ```
+  { 
+    Authorization: Bearer *Token de Usuário* 
+  }
+  ```
+
+  <br />
+  <b>Response:</b>
+
+  ```
+  {
+    "success": "Usuário - excluido com sucesso"
   }
   ```
 </details>

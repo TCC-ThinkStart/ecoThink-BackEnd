@@ -17,7 +17,7 @@ routes.get('/usuarios', validateToken, UsuarioController.findAllUsers);
 routes.get('/organizacoes', validateToken, UsuarioController.findAllOrgs);
 routes.get('/:codigo', validateToken, UsuarioController.findOne);
 routes.get('/pesquisa/:pesquisa', validateToken, UsuarioController.Search);
-routes.get('/profile/:codigo', validateToken, verifyUser, UsuarioController.profile);
+routes.get('/perfil/:codigo', validateToken, verifyUser, UsuarioController.profile);
 //POST
 routes.post('/', UsuarioController.storeUser);
 routes.post('/organizacao', UsuarioController.storeOrg);

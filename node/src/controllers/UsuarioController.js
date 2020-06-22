@@ -78,11 +78,17 @@ module.exports = {
         attributes: ['codigo', 'nome', 'email', 'celular', 'dataNascimento', 'dataCadastro', 'dataAlteracao', 'nivel', 'idEndereco', 'idFotoPerfil']
     })
     .then(usuario => {
-        if(usuario){
-            return res.status(200).json(usuario);
-        }else{
-            return res.status(404).send();
-        }
+        const { codigo, nome, email, celular, dataNascimento, dataCadastro, dataAlteracao, nivel, idEndereco, idFotoPerfil } = usuario;
+            if(nivel == 'USU'){
+                return res.status(200).json({
+                    codigo, nome, email, celular, dataNascimento, dataCadastro, dataAlteracao, nivel, idEndereco, idFotoPerfil
+                });
+            }
+            else{
+                return res.status(200).json({
+                    codigo, nome, email, celular, dataCadastro, dataAlteracao, nivel, idEndereco, idFotoPerfil
+                });
+            }
     })
     .catch( error => {	
         return res.status(500).json(error);	
@@ -124,9 +130,15 @@ module.exports = {
             const { codigo, nome, email, celular, dataNascimento, dataCadastro, dataAlteracao, nivel, cnpj, cpf, idEndereco, idFotoPerfil, confirmacao } = usuario;
             if(nivel == 'ORG'){
                 return res.status(200).json({
-                    codigo, nome, email, celular, dataNascimento, dataCadastro, dataAlteracao, nivel, cnpj, idEndereco, idFotoPerfil, confirmacao
+                    codigo, nome, email, celular, dataCadastro, dataAlteracao, nivel, cnpj, idEndereco, idFotoPerfil, confirmacao
                 });
-            }else{
+            }
+            else if(nivel == 'ADM'){
+                return res.status(200).json({
+                    codigo, nome, email, celular, dataCadastro, dataAlteracao, nivel, idEndereco, idFotoPerfil, confirmacao
+                });
+            }
+            else{
                 return res.status(200).json({
                     codigo, nome, email, celular, dataNascimento, dataCadastro, dataAlteracao, nivel, cpf, idEndereco, idFotoPerfil, confirmacao
                 });
@@ -187,6 +199,10 @@ module.exports = {
     let { senha } = req.body;
     
     senha = await bcrypt.hash(senha,10);
+
+    if(!cnpj || cnpj == null || cnpj == undefined){
+        return res.status(400).json({error: { message: 'Insira o CNPJ'}});
+    }
 
     await Usuario.create({
         nome, senha, email, nivel: 'ORG', celular, cnpj
@@ -268,7 +284,7 @@ module.exports = {
                 }
                 return res.status(200).json({
                     usuario: { codigo, nome, email, celular, dataNascimento, cpf },
-                    success: 'Usuario - atualizado com sucesso',
+                    success: 'Usuário - atualizado com sucesso',
                     token: token.generateToken({ codigo, nome, nivel }, senha, 86400)
                 });
             })
@@ -342,7 +358,7 @@ module.exports = {
                 }
                 return res.status(200).json({
                     usuario: { codigo, nome, email, celular, dataNascimento, cnpj },
-                    success: 'Usuario - atualizado com sucesso',
+                    success: 'Usuário - atualizado com sucesso',
                     token: token.generateToken({ codigo, nome, nivel }, senha, 86400)
                 });
             })
@@ -398,7 +414,7 @@ module.exports = {
                             }
                         
                             return res.status(200).json({
-                                success: 'Usuario - excluido com sucesso'
+                                success: 'Usuário - excluido com sucesso'
                             });
                         })
                     }else{
