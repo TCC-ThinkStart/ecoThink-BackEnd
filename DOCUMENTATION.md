@@ -338,7 +338,7 @@ Esta API usa 3 tipos de Tokens:
         "nome": "Estado", //String
         "sigla": "SG" //String
     },
-    "success": "Estado - atualizado com sucesso"
+    "success": "Estado - atualizado com sucesso" //String
   }
   ```
 </details>
@@ -366,7 +366,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Estado - excluido com sucesso"
+    "success": "Estado - excluido com sucesso" //String
   }
   ```
 </details>
@@ -522,7 +522,7 @@ Esta API usa 3 tipos de Tokens:
         "nome": "Estado", //String
         "idEstado": 1 //Number
     },
-    "success": "Cidade - atualizado com sucesso"
+    "success": "Cidade - atualizado com sucesso" //String
   }
   ```
 </details>
@@ -550,7 +550,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Cidade - excluido com sucesso"
+    "success": "Cidade - excluido com sucesso" //String
   }
   ```
 </details>
@@ -756,12 +756,15 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "codigo": 1, //Number
-    "cep": "12345678", //String
-    "logradouro": "Logradouro", //String
-    "bairro": "Bairro", //String
-    "numero": 1, //Number
-    "idCidade": 1 //Number
+    "endereco" : {
+        "codigo": 1, //Number
+        "cep": "12345678", //String
+        "logradouro": "Logradouro", //String
+        "bairro": "Bairro", //String
+        "numero": 1, //Number
+        "idCidade": 1 //Number
+    },
+    "success": "Endereco - atualizado com sucesso" //String
   }
   ```
 </details>
@@ -803,12 +806,15 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "codigo": 1, //Number
-    "cep": "12345678", //String
-    "logradouro": "Logradouro", //String
-    "bairro": "Bairro", //String
-    "numero": 1, //Number
-    "idCidade": 1 //Number
+    "endereco" : {
+        "codigo": 1, //Number
+        "cep": "12345678", //String
+        "logradouro": "Logradouro", //String
+        "bairro": "Bairro", //String
+        "numero": 1, //Number
+        "idCidade": 1 //Number
+    },
+    "success": "Endereco - atualizado com sucesso" //String
   }
   ```
 </details>
@@ -952,7 +958,7 @@ Esta API usa 3 tipos de Tokens:
         "codigo": 1, //Number
         "palavra": "Palavra" //String
     },
-    "success": "Palavra Chave - atualizado com sucesso"
+    "success": "Palavra Chave - atualizado com sucesso" //String
   }
   ```
 </details>
@@ -980,7 +986,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Palavra Chave - excluido com sucesso"
+    "success": "Palavra Chave - excluido com sucesso" //String
   }
   ```
 </details>
@@ -1164,7 +1170,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Foto de Perfil - atualizado com sucesso"
+    "success": "Foto de Perfil - atualizado com sucesso" //String
   }
   ```
 </details>
@@ -1192,7 +1198,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Foto - excluido com sucesso"
+    "success": "Foto - excluido com sucesso" //String
   }
   ```
 </details>
@@ -1220,7 +1226,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Foto de Perfil - excluido com sucesso"
+    "success": "Foto de Perfil - excluido com sucesso" //String
   }
   ```
 </details>
@@ -1650,7 +1656,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Palavra Chave - Adicionada"
+    "success": "Palavra Chave - Adicionada" //String
   }
   ```
 </details>
@@ -1703,7 +1709,7 @@ Esta API usa 3 tipos de Tokens:
         "idEndereco": 1, //Number
         "status": "aberto", //String
     },
-    "success": "Evento - atualizado com sucesso"
+    "success": "Evento - atualizado com sucesso" //String
   }
   ```
 </details>
@@ -1731,7 +1737,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Palavra Chave - Removida"
+    "success": "Palavra Chave - Removida" //String
   }
   ```
 </details>
@@ -1759,7 +1765,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Evento - excluido com sucesso"
+    "success": "Evento - excluido com sucesso" //String
   }
   ```
 </details>
@@ -1789,7 +1795,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Inscrição Bem Sucedida"
+    "success": "Inscrição Bem Sucedida" //String
   }
   ```
 </details>
@@ -1817,7 +1823,7 @@ Esta API usa 3 tipos de Tokens:
 
   ```
   {
-    "success": "Inscrição Cancelada"
+    "success": "Inscrição Cancelada" //String
   }
   ```
 </details>
@@ -2104,7 +2110,7 @@ Esta API usa 3 tipos de Tokens:
         "dataNascimento": "AAAA-MM-DD", //String
         "cpf": "12345678901" //String
     }
-    "token": "*Token de Usuário*"
+    "token": "*Token de Usuário*" //String
   }
   ```
 </details>
