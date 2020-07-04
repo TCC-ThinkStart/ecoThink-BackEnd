@@ -203,9 +203,10 @@ module.exports = {
                 where: {
                     codigo: evento.codigo
                 },
-                include: {
-                    association: 'usuario'
-                }
+                include: [{
+                    association: 'usuario',
+                    required: true
+                }]
             }).then(inscritos => {
                 res.header('X-Total-Subscribers-Count', inscritos);
                 return res.status(200).json(evento);
