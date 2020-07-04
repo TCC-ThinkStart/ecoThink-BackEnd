@@ -208,8 +208,25 @@ module.exports = {
                     required: true
                 }]
             }).then(inscritos => {
-                res.header('X-Total-Subscribers-Count', inscritos);
-                return res.status(200).json(evento);
+                Evento.findByPk(codigo, {
+                    attributes: [],
+                    include: [{
+                        required: true,
+                        attributes: [],
+                        association: 'usuario',
+                        where: {
+                            codigo
+                        }
+                    }]
+                }).then(inscricao => {
+                    if(inscricao){
+                        evento.dataValues.inscrito = true;
+                    }else{
+                        evento.dataValues.inscrito = false;
+                    }
+                    res.header('X-Total-Subscribers-Count', inscritos);
+                    return res.status(200).json(evento);
+                })
             })
         }else{
             return res.status(404).send();

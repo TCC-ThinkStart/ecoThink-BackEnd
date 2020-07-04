@@ -1573,7 +1573,8 @@ Esta API usa 3 tipos de Tokens:
               "palavra": "Palavra" //String
           },
           ...
-      ]
+      ],
+      "inscrito": true //Boolean
   }
   ```
 </details>
